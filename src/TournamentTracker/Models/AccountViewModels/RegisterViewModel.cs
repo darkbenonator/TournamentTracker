@@ -8,6 +8,8 @@ namespace TournamentTracker.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
+
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

@@ -5,13 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TournamentTracker.Models;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace TournamentTracker.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        //DbContextOptions<ApplicationDbContext> options
+        public ApplicationDbContext()
+            : base()
+            //options
         {
         }
 
@@ -21,6 +25,16 @@ namespace TournamentTracker.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            var connectionStringConfig = builder.Build();
+
+            optionsBuilder.UseSqlServer(connectionStringConfig.GetConnectionString("Database"));
         }
     }
 }

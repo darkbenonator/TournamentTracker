@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using TournamentTracker.Data;
 using TournamentTracker.Models;
 using TournamentTracker.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TournamentTracker
 {
@@ -54,6 +55,7 @@ namespace TournamentTracker
 
             services.AddMvc();
 
+
             services.AddIdentity<ApplicationUser, IdentityRole>(o => {
                 // configure identity options
                 o.Password.RequireDigit = true;
@@ -61,6 +63,8 @@ namespace TournamentTracker
                 o.Password.RequireUppercase = false;
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
+
+                o.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

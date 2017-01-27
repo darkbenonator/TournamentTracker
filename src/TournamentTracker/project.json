@@ -41,7 +41,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Microsoft.NETCore.App": "1.1.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
-    "Microsoft.ApplicationInsights.AspNetCore": "2.0.0"
+    "Microsoft.ApplicationInsights.AspNetCore": "2.0.0",
+    "Microsoft.DotNet.InternalAbstractions": "1.0.0"
   },
 
   "tools": {

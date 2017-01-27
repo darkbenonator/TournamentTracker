@@ -150,6 +150,7 @@ namespace TournamentTracker.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
@@ -190,6 +191,7 @@ namespace TournamentTracker.Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -214,6 +216,7 @@ namespace TournamentTracker.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
         }
     }
 }

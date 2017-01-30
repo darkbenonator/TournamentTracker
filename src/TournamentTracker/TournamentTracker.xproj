@@ -6,7 +6,7 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>2d6d65a4-74c7-4ce7-afa6-5b301d041fe2</ProjectGuid>
+    <ProjectGuid>0a644b95-db31-49c6-843e-d5f63062b0d2</ProjectGuid>
     <RootNamespace>TournamentTracker</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>

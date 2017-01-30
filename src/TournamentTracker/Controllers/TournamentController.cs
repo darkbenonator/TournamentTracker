@@ -1,16 +1,96 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using TournamentTracker.Models.TournamentModels;
+using TournamentTracker.Data;
+using static TournamentTracker.Models.TournamentModels.EventViewModel;
+using Microsoft.AspNetCore.Identity;
+using TournamentTracker.Models;
 
 namespace TournamentTracker.Controllers
 {
     public class TournamentController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public TournamentController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        //Home Loads the events table 
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            using (var context = new ApplicationDbContext())
+            {
+                EventViewModel eventVM = new EventViewModel();
+                eventVM.evtTable = (from E in context.Event
+                                    join l in context.Location on E.LocationID equals l.LocationID
+                                    join EO in context.EventOrganiser on E.EventID equals EO.EventID
+                                    join u in context.Users on EO.UserID equals u.Id
+                                    select (new EventTable()
+                                    {
+                                        UserID = u.Id,
+                                        Username = u.UserName,
+                                        EventID = E.EventID,
+                                        Description = E.Description,
+                                        EventName = E.EventName,
+                                        LocationName = l.LocationName,
+                                        LocationID = l.LocationID,
+                                        StartTime = E.StartTime
+                                    })).ToList();
+                return View("Events", eventVM);
+            }
         }
+
+        //Create Event 
+        [Authorize]
+        public IActionResult CreateEvent()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                LocationsDropDown LocationsDrop = new LocationsDropDown();
+                LocationsDrop.locations = (from L in context.Location
+                                           select L).ToList();
+                return View("Create", LocationsDrop);
+            }
+        }
+
+        //Create Event 
+        [Authorize]
+        public void Create(Event eventCreation)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                context.Add(eventCreation);
+                context.SaveChanges();
+                EventOrganiser EO = new EventOrganiser();
+                EO.EventID = eventCreation.EventID;
+                EO.UserID = _userManager.GetUserId(HttpContext.User);
+            }
+            Index();
+        }
+
+        //Load the location creation screen
+        //Add new Location, Admin only?
+        [Authorize]
+        public IActionResult LocationScreen()
+        {
+            return View("LocationScreen");
+        }
+        //Add new Location, Admin only?
+        [Authorize]
+        public void CreateLocation(Location locationCreation)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                context.Add(locationCreation);
+                context.SaveChanges();
+            }
+            Index();
+        }
+
     }
 }

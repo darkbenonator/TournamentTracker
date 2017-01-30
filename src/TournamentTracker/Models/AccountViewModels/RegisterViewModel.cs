@@ -9,6 +9,14 @@ namespace TournamentTracker.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Firstname")]
+        public string Firstname { get; set; }
+
+        [Required]
+        [Display(Name = "Lastname")]
+        public string Lastname { get; set; }
+
+        [Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
 

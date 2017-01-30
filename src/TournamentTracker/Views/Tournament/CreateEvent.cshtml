@@ -1,0 +1,72 @@
+@model TournamentTracker.Models.TournamentModels.Event
+
+@{
+    ViewData["Title"] = "CreateEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateEvent</h2>
+<p>
+    <a asp-action="CreateEvent">Create New</a>
+</p>
+<form asp-action="CreateEvent">
+    <div class="form-horizontal">
+        <h4>Event</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndTime" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EndTime" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EventName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EventPackURL" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="EventPackURL" class="form-control" />
+                <span asp-validation-for="EventPackURL" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LocationID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="LocationID" class ="form-control" asp-items="ViewBag.LocationID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartTime" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

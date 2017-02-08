@@ -7,11 +7,14 @@ using TournamentTracker.Data;
 using static TournamentTracker.Models.TournamentModels.EventViewModel;
 using Microsoft.AspNetCore.Identity;
 using TournamentTracker.Models;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
 namespace TournamentTracker.Controllers
 {
     public class TournamentController : Controller
     {
+
+
         private readonly UserManager<ApplicationUser> _userManager;
 
         public TournamentController(UserManager<ApplicationUser> userManager)
@@ -54,7 +57,7 @@ namespace TournamentTracker.Controllers
                 LocationsDropDown LocationsDrop = new LocationsDropDown();
                 LocationsDrop.locations = (from L in context.Location
                                            select L).ToList();
-                return View("Create", LocationsDrop);
+                return View("CreateEvent", LocationsDrop);
             }
         }
 
@@ -76,9 +79,10 @@ namespace TournamentTracker.Controllers
         //Load the location creation screen
         //Add new Location, Admin only?
         [Authorize]
-        public IActionResult LocationScreen()
+        public ActionResult AddLocation()
         {
-            return View("LocationScreen");
+            var model = new Location();
+            return PartialView("CreateLocation", model);
         }
         //Add new Location, Admin only?
         [Authorize]

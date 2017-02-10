@@ -8,6 +8,8 @@ using static TournamentTracker.Models.TournamentModels.EventViewModel;
 using Microsoft.AspNetCore.Identity;
 using TournamentTracker.Models;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using System.Collections;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TournamentTracker.Controllers
 {
@@ -54,10 +56,12 @@ namespace TournamentTracker.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                LocationsDropDown LocationsDrop = new LocationsDropDown();
-                LocationsDrop.locations = (from L in context.Location
-                                           select L).ToList();
-                return View("CreateEvent", LocationsDrop);
+                Event model = new Event();
+                var query = from L in context.Location
+                            select L;
+                ViewBag.Locations = new SelectList(query, "LocationName", "LocationID");
+
+                return View("CreateEvent", model);
             }
         }
 

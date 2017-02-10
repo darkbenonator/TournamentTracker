@@ -33,12 +33,12 @@ namespace TournamentTracker.Data.Migrations
                 {
                     LocationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AddressLine1 = table.Column<string>(nullable: true),
+                    AddressLine1 = table.Column<string>(nullable: false),
                     AddressLine2 = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
                     County = table.Column<string>(nullable: true),
-                    LocationName = table.Column<string>(nullable: true),
-                    PostCode = table.Column<string>(nullable: true)
+                    LocationName = table.Column<string>(nullable: false),
+                    PostCode = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

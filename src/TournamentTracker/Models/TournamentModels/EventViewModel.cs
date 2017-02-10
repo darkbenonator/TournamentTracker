@@ -23,10 +23,9 @@ namespace TournamentTracker.Models.TournamentModels
         }
     }
 
-    //Location Dropdown
-    public class LocationsDropDown
+    public class LocationDropDown
     {
-        public IList<Location>locations;
+        public int ID { get; set; }
+        public string locationName { get; set; }
     }
-
 }

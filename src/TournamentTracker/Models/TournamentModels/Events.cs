@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace TournamentTracker.Models.TournamentModels
 {
@@ -10,10 +11,13 @@ namespace TournamentTracker.Models.TournamentModels
         public int LocationID { get; set; }
         [Required]
         public string LocationName { get; set; }
+        [Required]
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
+        [Required]
         public string City { get; set; }
         public string County { get; set; }
+        [Required]
         public string PostCode { get; set; }
     }
 

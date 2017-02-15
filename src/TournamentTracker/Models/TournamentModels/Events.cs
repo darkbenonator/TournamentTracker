@@ -9,14 +9,29 @@ namespace TournamentTracker.Models.TournamentModels
     {
         [Key()]
         public int LocationID { get; set; }
-        [Required]
+
+        [Required, StringLength(60, MinimumLength = 3)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string LocationName { get; set; }
+
         [Required]
+        [StringLength(60, MinimumLength = 3)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string AddressLine1 { get; set; }
+
+        [StringLength(60)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string AddressLine2 { get; set; }
+
         [Required]
+        [StringLength(60, MinimumLength = 3)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string City { get; set; }
+
+        [StringLength(60)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string County { get; set; }
+
         [Required]
         public string PostCode { get; set; }
     }

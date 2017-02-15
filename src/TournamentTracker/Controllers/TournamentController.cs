@@ -57,9 +57,9 @@ namespace TournamentTracker.Controllers
             using (var context = new ApplicationDbContext())
             {
                 Event model = new Event();
-                var query = from L in context.Location
-                            select L;
-                ViewBag.Locations = new SelectList(query, "LocationName", "LocationID");
+                var query = (from L in context.Location
+                            select L).ToList();
+                ViewBag.Locations = new SelectList(query, "LocationID", "LocationName");
 
                 return View("CreateEvent", model);
             }

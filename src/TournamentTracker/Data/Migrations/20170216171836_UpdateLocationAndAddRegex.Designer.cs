@@ -8,9 +8,10 @@ using TournamentTracker.Data;
 namespace TournamentTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170216171836_UpdateLocationAndAddRegex")]
+    partial class UpdateLocationAndAddRegex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -446,7 +447,7 @@ namespace TournamentTracker.Data.Migrations
 
                     b.Property<string>("LocationName")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 35);
+                        .HasAnnotation("MaxLength", 20);
 
                     b.Property<string>("PhoneNumber")
                         .HasAnnotation("MaxLength", 14);
@@ -464,24 +465,6 @@ namespace TournamentTracker.Data.Migrations
                     b.HasKey("LocationID");
 
                     b.ToTable("Location");
-                });
-
-            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.LocationAdmin", b =>
-                {
-                    b.Property<int>("LocationAdminID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("LocationID");
-
-                    b.Property<string>("UserID");
-
-                    b.HasKey("LocationAdminID");
-
-                    b.HasIndex("LocationID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("LocationAdmin");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -653,18 +636,6 @@ namespace TournamentTracker.Data.Migrations
                         .WithMany()
                         .HasForeignKey("Player")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.LocationAdmin", b =>
-                {
-                    b.HasOne("TournamentTracker.Models.TournamentModels.Location", "location")
-                        .WithMany()
-                        .HasForeignKey("LocationID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TournamentTracker.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
         }
     }

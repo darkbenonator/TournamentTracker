@@ -1,43 +1,153 @@
 @model TournamentTracker.Models.TournamentModels.Location
 
+@{
+    ViewData["Title"] = "Create Location";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Location</h2>
+
 <form asp-action="CreateLocation">
     <div class="form-horizontal">
-        <h4>Location</h4>
-        <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="AddressLine1" class="col-md-2 control-label"></label>
+            <label asp-for="LocationName" class="col-md-2 control-label ">Location Name:</label>
+            <div class="col-md-10 LocationName">
+                <input asp-for="LocationName" class="form-control NameWatch" />
+                <span asp-validation-for="LocationName" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AddressLine1" class="col-md-2 control-label">Address Line 1:</label>
             <div class="col-md-10">
                 <input asp-for="AddressLine1" class="form-control" />
                 <span asp-validation-for="AddressLine1" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="AddressLine2" class="col-md-2 control-label"></label>
+            <label asp-for="AddressLine2" class="col-md-2 control-label">Address Line 2:</label>
             <div class="col-md-10">
                 <input asp-for="AddressLine2" class="form-control" />
                 <span asp-validation-for="AddressLine2" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="City" class="col-md-2 control-label"></label>
+            <label asp-for="City" class="col-md-2 control-label">City or town:</label>
             <div class="col-md-10">
                 <input asp-for="City" class="form-control" />
                 <span asp-validation-for="City" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="County" class="col-md-2 control-label"></label>
+            <label asp-for="County" class="col-md-2 control-label">County:</label>
             <div class="col-md-10">
-                <input asp-for="County" class="form-control" />
+                <select asp-for="County" class="form-control" >
+                    <optgroup label="England">
+                        <option>Avon</option>
+                        <option>Bedfordshire</option>
+                        <option>Berkshire</option>
+                        <option>Buckinghamshire</option>
+                        <option>Cambridgeshire</option>
+                        <option>Cheshire</option>
+                        <option>Cleveland</option>
+                        <option>Cornwall</option>
+                        <option>Cumbria</option>
+                        <option>Derbyshire</option>
+                        <option>Devon</option>
+                        <option>Dorset</option>
+                        <option>Durham</option>
+                        <option>East Sussex</option>
+                        <option>Essex</option>
+                        <option>Gloucestershire</option>
+                        <option>Hampshire</option>
+                        <option>Herefordshire</option>
+                        <option>Hertfordshire</option>
+                        <option>Isle of Wight</option>
+                        <option>Kent</option>
+                        <option>Lancashire</option>
+                        <option>Leicestershire</option>
+                        <option>Lincolnshire</option>
+                        <option>London</option>
+                        <option>Merseyside</option>
+                        <option>Middlesex</option>
+                        <option>Norfolk</option>
+                        <option>Northamptonshire</option>
+                        <option>Northumberland</option>
+                        <option>North Humberside</option>
+                        <option>North Yorkshire</option>
+                        <option>Nottinghamshire</option>
+                        <option>Oxfordshire</option>
+                        <option>Rutland</option>
+                        <option>Shropshire</option>
+                        <option>Somerset</option>
+                        <option>South Humberside</option>
+                        <option>South Yorkshire</option>
+                        <option>Staffordshire</option>
+                        <option>Suffolk</option>
+                        <option>Surrey</option>
+                        <option>Tyne and Wear</option>
+                        <option>Warwickshire</option>
+                        <option>West Midlands</option>
+                        <option>West Sussex</option>
+                        <option>West Yorkshire</option>
+                        <option>Wiltshire</option>
+                        <option>Worcestershire</option>
+                    </optgroup>
+                    <optgroup label="Wales">
+                        <option>Clwyd</option>
+                        <option>Dyfed</option>
+                        <option>Gwent</option>
+                        <option>Gwynedd</option>
+                        <option>Mid Glamorgan</option>
+                        <option>Powys</option>
+                        <option>South Glamorgan</option>
+                        <option>West Glamorgan</option>
+                    </optgroup>
+                    <optgroup label="Scotland">
+                        <option>Aberdeenshire</option>
+                        <option>Angus</option>
+                        <option>Argyll</option>
+                        <option>Ayrshire</option>
+                        <option>Banffshire</option>
+                        <option>Berwickshire</option>
+                        <option>Bute</option>
+                        <option>Caithness</option>
+                        <option>Clackmannanshire</option>
+                        <option>Dumfriesshire</option>
+                        <option>Dunbartonshire</option>
+                        <option>East Lothian</option>
+                        <option>Fife</option>
+                        <option>Inverness-shire</option>
+                        <option>Kincardineshire</option>
+                        <option>Kinross-shire</option>
+                        <option>Kirkcudbrightshire</option>
+                        <option>Lanarkshire</option>
+                        <option>Midlothian</option>
+                        <option>Moray</option>
+                        <option>Nairnshire</option>
+                        <option>Orkney</option>
+                        <option>Peeblesshire</option>
+                        <option>Perthshire</option>
+                        <option>Renfrewshire</option>
+                        <option>Ross-shire</option>
+                        <option>Roxburghshire</option>
+                        <option>Selkirkshire</option>
+                        <option>Shetland</option>
+                        <option>Stirlingshire</option>
+                        <option>Sutherland</option>
+                        <option>West Lothian</option>
+                        <option>Wigtownshire</option>
+                    </optgroup>
+                    <optgroup label="Northern Ireland">
+                        <option>Antrim</option>
+                        <option>Armagh</option>
+                        <option>Down</option>
+                        <option>Fermanagh</option>
+                        <option>Londonderry</option>
+                        <option>Tyrone</option>
+                    </optgroup>
+                </select>
                 <span asp-validation-for="County" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="LocationName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="LocationName" class="form-control" />
-                <span asp-validation-for="LocationName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -48,17 +158,47 @@
             </div>
         </div>
         <div class="form-group">
+            <label asp-for="Email" class="col-md-2 control-label">Email:</label>
+            <div class="col-md-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FacebookURL" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FacebookURL" class="form-control" />
+                <span asp-validation-for="FacebookURL" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TwitterURL" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TwitterURL" class="form-control" />
+                <span asp-validation-for="TwitterURL" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="WebsiteURL" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="WebsiteURL" class="form-control" />
+                <span asp-validation-for="WebsiteURL" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 </form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -40,6 +40,7 @@ namespace TournamentTracker.Data
             optionsBuilder.UseSqlServer(connectionStringConfig.GetConnectionString("Database"));
         }
         public DbSet<Location> Location { get; set; }
+        public DbSet<LocationAdmin> LocationAdmin { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<EventOrganiser> EventOrganiser { get; set; }
         public DbSet<EventArmyList> EventArmyList { get; set; }

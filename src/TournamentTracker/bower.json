@@ -5,7 +5,8 @@
     "bootstrap": "3.3.6",
     "jquery-validation": "1.15.0",
     "jquery-validation-unobtrusive": "~3.2.6",
-    "jquery": "2.2.3"
+    "jquery": "2.2.3",
+    "smalot-bootstrap-datetimepicker": "2.3.10"
   },
   "resolutions": {
     "jquery": ">=1.9",

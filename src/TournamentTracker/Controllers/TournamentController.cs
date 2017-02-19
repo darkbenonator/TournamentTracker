@@ -24,6 +24,26 @@ namespace TournamentTracker.Controllers
             _userManager = userManager;
         }
 
+        [HttpPost]
+        public JsonResult doesNameExist(string Name,  string Form)
+        {
+            var context = new ApplicationDbContext();
+            //check if any of the UserName matches the UserName specified in the Parameter using the ANY extension method.
+            bool results = false;
+            if (Form == "Location") {
+                if (context.Location.Any(x => x.LocationName == Name)) {
+                    results = true;
+                }
+            }
+            else if(Form == "Event") {
+                if (context.Event.Any(x => x.EventName == Name))
+                {
+                    results = true;
+                }
+            }
+            return Json(results);
+        }
+
         //Home Loads the events table 
         [Authorize]
         public IActionResult Index()
@@ -67,17 +87,18 @@ namespace TournamentTracker.Controllers
 
         //Create Event 
         [Authorize]
-        public void Create(Event eventCreation)
+        public RedirectToActionResult Create(Event eventCreation)
         {
             using (var context = new ApplicationDbContext())
             {
                 context.Add(eventCreation);
-                context.SaveChanges();
                 EventOrganiser EO = new EventOrganiser();
                 EO.EventID = eventCreation.EventID;
                 EO.UserID = _userManager.GetUserId(HttpContext.User);
+                context.Add(EO);
+                context.SaveChanges();
             }
-            Index();
+            return RedirectToAction("Index", "Tournament");
         }
 
         //Load the location creation screen
@@ -86,18 +107,22 @@ namespace TournamentTracker.Controllers
         public ActionResult AddLocation()
         {
             var model = new Location();
-            return PartialView("CreateLocation", model);
+            return View("CreateLocation", model);
         }
         //Add new Location, Admin only?
         [Authorize]
-        public void CreateLocation(Location locationCreation)
+        public RedirectToActionResult CreateLocation(Location locationCreation)
         {
             using (var context = new ApplicationDbContext())
             {
                 context.Add(locationCreation);
+                LocationAdmin admin = new LocationAdmin();
+                admin.UserID = _userManager.GetUserId(HttpContext.User);
+                admin.LocationID = locationCreation.LocationID;
+                context.Add(admin);
                 context.SaveChanges();
             }
-            Index();
+            return RedirectToAction( "CreateEvent", "Tournament");
         }
 
     }

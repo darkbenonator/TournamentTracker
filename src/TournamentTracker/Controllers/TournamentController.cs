@@ -57,14 +57,15 @@ namespace TournamentTracker.Controllers
                                     join u in context.Users on EO.UserID equals u.Id
                                     select (new EventTable()
                                     {
-                                        UserID = u.Id,
-                                        Username = u.UserName,
                                         EventID = E.EventID,
                                         Description = E.Description,
                                         EventName = E.EventName,
                                         LocationName = l.LocationName,
                                         LocationID = l.LocationID,
-                                        StartTime = E.StartTime
+                                        StartTime = E.StartTime,
+                                        EndTime = E.EndTime,
+                                        LocationCity = l.City,
+                                        EventOrganiser = EO.UserID
                                     })).ToList();
                 return View("Events", eventVM);
             }
@@ -123,6 +124,18 @@ namespace TournamentTracker.Controllers
                 context.SaveChanges();
             }
             return RedirectToAction( "CreateEvent", "Tournament");
+        }
+
+        //Get the events details
+        public IActionResult EventDetails(int EventID)
+        {
+            return View();
+        }
+
+        //Event 
+        public IActionResult EditEvent(int EventID)
+        {
+            return View();
         }
 
     }

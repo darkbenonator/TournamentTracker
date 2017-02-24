@@ -14,12 +14,13 @@ namespace TournamentTracker.Models.TournamentModels
         {
             public int LocationID { get; set; }
             public string LocationName { get; set; }
+            public string LocationCity { get; set; }
             public string EventName { get; set; }
             public string Description { get; set; }
             public DateTime StartTime { get; set; }
-            public string UserID { get; set; }
+            public DateTime EndTime { get; set; }
             public int EventID { get; set; }
-            public string Username { get; set; }
+            public string EventOrganiser { get; set; }
         }
     }
 

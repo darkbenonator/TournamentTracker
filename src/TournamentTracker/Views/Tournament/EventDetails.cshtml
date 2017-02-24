@@ -1,0 +1,60 @@
+@model TournamentTracker.Models.TournamentModels.Event
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventPackURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventPackURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventRestrictions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventRestrictions)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FoodDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfTables)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfTables)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.EventID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -5,6 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace TournamentTracker.Models.TournamentModels
 {
+
+    //Notes on DB creation - Add indexes for the location and Event names. Make Unique in database :)
+
+
     public class Location
     {
         //TODO locate sting truncate on location creation 

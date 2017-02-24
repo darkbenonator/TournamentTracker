@@ -24,6 +24,7 @@ namespace TournamentTracker.Controllers
             _userManager = userManager;
         }
 
+        //Checks to see if the name being entered is unique, Used for Location and Event names.
         [HttpPost]
         public JsonResult doesNameExist(string Name,  string Form)
         {
@@ -110,6 +111,7 @@ namespace TournamentTracker.Controllers
             var model = new Location();
             return View("CreateLocation", model);
         }
+
         //Add new Location, Admin only?
         [Authorize]
         public RedirectToActionResult CreateLocation(Location locationCreation)
@@ -129,14 +131,70 @@ namespace TournamentTracker.Controllers
         //Get the events details
         public IActionResult EventDetails(int EventID)
         {
-            return View();
+            using (var context = new ApplicationDbContext())
+            {
+                EventDetailsViewModel model = new EventDetailsViewModel();
+                model = (from E in context.Event
+                         join L in context.Location on E.LocationID equals L.LocationID
+                         join EO in context.EventOrganiser on E.EventID equals EO.EventID
+                         where E.EventID == EventID
+                         select (new EventDetailsViewModel()
+                         {
+                             LocationName = L.LocationName,
+                             AddressLine1 = L.AddressLine1,
+                             AddressLine2 = L.AddressLine2,
+                             City = L.City,
+                             County = L.County,
+                             Email = L.Email,
+                             FacebookURL = L.FacebookURL,
+                             PhoneNumber = L.PhoneNumber,
+                             PostCode = L.PostCode,
+                             TwitterURL = L.TwitterURL,
+                             WebsiteURL = L.WebsiteURL,
+
+                             EventOrganiserID = EO.UserID,
+
+                             Description = E.Description,
+                             EndTime = E.EndTime,
+                             StartTime = E.StartTime,
+                             EventName = E.EventName,
+                             EventPackURL = E.EventPackURL,
+                             EventRestrictions = E.EventRestrictions,
+                             FoodDescription = E.FoodDescription,
+                             NumberOfTables = E.NumberOfTables
+                         })).First();
+                GamesViewModel games;
+                ViewBag.Games =; 
+                return View(model);
+            }
+            
         }
 
-        //Event 
+        //Edit the Event, Organiser Only.
         public IActionResult EditEvent(int EventID)
         {
-            return View();
+            using (var context = new ApplicationDbContext())
+            {
+                Event model = new Event();
+                model = (from E in context.Event
+                         where E.EventID == EventID
+                         select E
+                         ).First();
+                return View(model);
+            }
         }
 
+        //Get The Events Games. Ajax
+        public string EventGames(int EventID)
+        {
+
+            return Json();
+        }
+        //Add Game
+        public string AddGames(int EventID)
+        {
+
+            return Json();
+        }
     }
 }

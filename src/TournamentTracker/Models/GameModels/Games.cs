@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TournamentTracker.Models.TournamentModels;
 
 namespace TournamentTracker.Models.GameModels
 {
@@ -8,9 +9,14 @@ namespace TournamentTracker.Models.GameModels
     {
         [Key()]
         public int RuleID { get; set; }
-        [Required]
+        [Required, StringLength(35, MinimumLength = 3)]
+        [RegularExpression(@"^([\w\s\.])*$", ErrorMessage = "Please use alphanumeric characters, spaces are allowed")]
+        public string RuleName { get; set; }
+        [StringLength(200)]
+        [RegularExpression(@"^([\w\s\.@!$&*();:'/+,-?]*$)", ErrorMessage = "Contains Illegal characters")]
         public string Rule { get; set; }
     }
+
     public class GamesRules
     {
         [Key()]
@@ -21,11 +27,20 @@ namespace TournamentTracker.Models.GameModels
         public int PrimaryMissionWinScore { get; set; }
         [Required]
         public int PrimaryMissionDrawScore { get; set; }
+        [Required]
+        public TimeSpan GameLength { get; set; }
+        [Required]
+        public int Round { get; set; }
         public int PrimaryMission2 { get; set; }
+        public int SecondaryMissionWinScore { get; set; }
+        public int SecondaryMissionDrawScore { get; set; }
         public int SecondaryMission1 { get; set; }
         public int SecondaryMission2 { get; set; }
         public int SecondaryMission3 { get; set; }
-        public int ExtraRules { get; set; }
+        public int EventID { get; set; }
+        [StringLength(200)]
+        [RegularExpression(@"^([\w\s\.@!$&*();:'/+,-?]*$)", ErrorMessage = "Contains Illegal characters")]
+        public string ExtraRules { get; set; }
         [ForeignKey("PrimaryMission1")]
         public Rules PrimaryMission1Obj { get; set; }
         [ForeignKey("PrimaryMission2")]
@@ -36,6 +51,8 @@ namespace TournamentTracker.Models.GameModels
         public Rules SecondaryMission2Obj { get; set; }
         [ForeignKey("SecondaryMissio3")]
         public Rules SecondaryMission3Obj { get; set; }
+        [ForeignKey("EventID")]
+        public Event eventObj { get; set; }
     }
 
     public class Games
@@ -43,18 +60,19 @@ namespace TournamentTracker.Models.GameModels
         [Key()]
         public int GameID { get; set; }
         public TimeSpan GameLength { get; set; }
+        public TimeSpan CurrentGameTime { get; set; }
         [Required]
         public string Player1 { get; set; }
         [Required]
         public string Player2 { get; set; }
         [Required]
-        public int Round { get; set; }
-        [Required]
         public int Table { get; set; }
-        [Required]
-        public int GameScoreID { get; set; }
-        [ForeignKey("GameScoreID")]
-        public GameScores GameScores { get; set; }
+        public int Player1Score { get; set; }
+        public int Player2Score { get; set; }
+        [ForeignKey("Player1Score")]
+        public GameScores Player1ScoreObj { get; set; }
+        [ForeignKey("Player2Score")]
+        public GameScores Player2ScoreObj { get; set; }
         public int GameRulesID { get; set; }
         [ForeignKey("GameRulesID")]
         public GamesRules GameRules  { get; set; }
@@ -76,10 +94,9 @@ namespace TournamentTracker.Models.GameModels
         public int PrimaryScore { get; set; }
         public int Primary2Score { get; set; }
         public int SecondaryScore { get; set; }
+        [Required]
         public int SportsmanScore { get; set; }
         [ForeignKey("GameID")]
         public Games game { get; set; }
-        [ForeignKey("Player")]
-        public virtual ApplicationUser UserPlayer2 { get; set; }
     }
 }

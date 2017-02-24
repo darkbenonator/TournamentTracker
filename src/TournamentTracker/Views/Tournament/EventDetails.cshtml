@@ -1,20 +1,87 @@
-@model TournamentTracker.Models.TournamentModels.Event
+@model TournamentTracker.Models.TournamentModels.EventDetailsViewModel
+
+@{
+    ViewData["Title"] = "EventDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EventDetails</h2>
 
 <div>
-    <h4>Event</h4>
+    <h4>EventDetailsViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.LocationName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.LocationName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.DisplayNameFor(model => model.AddressLine1)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EndTime)
+            @Html.DisplayFor(model => model.AddressLine1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressLine2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AddressLine2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.County)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.County)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PostCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PostCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FacebookURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FacebookURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WebsiteURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WebsiteURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitterURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TwitterURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventID)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.EventName)
@@ -23,10 +90,22 @@
             @Html.DisplayFor(model => model.EventName)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.EventPackURL)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.EventPackURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfTables)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfTables)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.EventRestrictions)
@@ -41,20 +120,26 @@
             @Html.DisplayFor(model => model.FoodDescription)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.NumberOfTables)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfTables)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.StartTime)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.StartTime)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganiserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganiserID)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.EventID">Edit</a> |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>

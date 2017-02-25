@@ -164,7 +164,7 @@ namespace TournamentTracker.Controllers
                              NumberOfTables = E.NumberOfTables
                          })).First();
                 GamesViewModel games;
-                ViewBag.Games =; 
+                 
                 return View(model);
             }
             
@@ -185,16 +185,16 @@ namespace TournamentTracker.Controllers
         }
 
         //Get The Events Games. Ajax
-        public string EventGames(int EventID)
+        public JsonResult EventGames(int EventID)
         {
-
-            return Json();
+            string test = "Hi";
+            return Json(test);
         }
         //Add Game
-        public string AddGames(int EventID)
+        public JsonResult AddGames(int EventID)
         {
-
-            return Json();
+            string test = "Hi";
+            return Json(test);
         }
     }
 }

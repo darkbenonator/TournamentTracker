@@ -87,8 +87,6 @@ namespace TournamentTracker.Models.GameModels
         [Key()]
         public int GameScoreID { get; set; }
         [Required]
-        public int GameID { get; set; }
-        [Required]
         public string Player { get; set; }
         [Required]
         public int PrimaryScore { get; set; }
@@ -96,7 +94,7 @@ namespace TournamentTracker.Models.GameModels
         public int SecondaryScore { get; set; }
         [Required]
         public int SportsmanScore { get; set; }
-        [ForeignKey("GameID")]
-        public Games game { get; set; }
+        [ForeignKey("Player")]
+        public virtual ApplicationUser PlayerObj { get; set; }
     }
 }

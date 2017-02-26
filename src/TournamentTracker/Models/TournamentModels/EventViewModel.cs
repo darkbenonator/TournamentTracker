@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TournamentTracker.Models.GameModels;
 
 namespace TournamentTracker.Models.TournamentModels
 {
@@ -56,13 +57,10 @@ namespace TournamentTracker.Models.TournamentModels
         public string EventOrganiserID { get; set; }
     }
 
-    public class GamesViewModel
+    public class EventDetailsGameViewModel
     {
-
+        public EventDetailsViewModel Event { get; set; }
+        public IList<GamesViewModel> GamesViewList { get; set; }
     }
 
-    public class GamesList
-    {
-        IList<GamesViewModel> GamesViewList { get; set; }
-    }
 }

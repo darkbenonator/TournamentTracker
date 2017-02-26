@@ -10,6 +10,7 @@ using TournamentTracker.Models;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TournamentTracker.Models.GameModels;
 
 namespace TournamentTracker.Controllers
 {
@@ -133,8 +134,8 @@ namespace TournamentTracker.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                EventDetailsViewModel model = new EventDetailsViewModel();
-                model = (from E in context.Event
+                EventDetailsViewModel EventDetails = new EventDetailsViewModel();
+                EventDetails = (from E in context.Event
                          join L in context.Location on E.LocationID equals L.LocationID
                          join EO in context.EventOrganiser on E.EventID equals EO.EventID
                          where E.EventID == EventID
@@ -163,9 +164,48 @@ namespace TournamentTracker.Controllers
                              FoodDescription = E.FoodDescription,
                              NumberOfTables = E.NumberOfTables
                          })).First();
-                GamesViewModel games;
-                 
-                return View(model);
+                int Rounds = (from GR in context.GamesRules 
+                              where GR.EventID == EventID
+                              orderby GR.Round
+                              select GR.Round).First();
+                int i = 0;
+                EventDetailsGameViewModel GL = new EventDetailsGameViewModel();
+                GL.Event = EventDetails;
+                while (i <= Rounds)
+                {
+                    GamesViewModel games = (from  GR in context.GamesRules 
+                                            join Mis1 in context.Rules on GR.PrimaryMission1 equals Mis1.RuleID
+                                            join Mis2 in context.Rules on GR.PrimaryMission2 equals Mis2.RuleID
+                                            join Sec1 in context.Rules on GR.SecondaryMission1 equals Sec1.RuleID
+                                            join Sec2 in context.Rules on GR.SecondaryMission2 equals Sec2.RuleID
+                                            join Sec3 in context.Rules on GR.SecondaryMission3 equals Sec3.RuleID
+                                            where GR.EventID == EventID
+                                            where GR.Round == i
+                                            select new GamesViewModel()
+                                            {
+                                                Round = GR.Round,
+
+                                                PrimaryMissionRuleName = Mis1.RuleName,
+                                                PrimaryMissionRule = Mis1.Rule,
+                                                Primary2MissionRuleName = Mis2.RuleName,
+                                                Primary2MissionRule = Mis2.Rule,
+                                                PrimaryMissionWinScore = GR.PrimaryMissionWinScore,
+                                                PrimaryMissionDrawScore = GR.PrimaryMissionDrawScore,
+
+                                                SecondaryMissionRuleName = Sec1.RuleName,
+                                                SecondaryMissionRule = Sec1.Rule,
+                                                Secondary2MissionRuleName = Sec2.RuleName,
+                                                Secondary2MissionRule = Sec2.Rule,
+                                                Secondary3MissionRuleName = Sec3.RuleName,
+                                                Secondary3MissionRule = Sec3.Rule,
+                                                SecondaryMissionDrawScore = GR.SecondaryMissionDrawScore,
+                                                SecondaryMissionWinScore = GR.SecondaryMissionWinScore
+                                            }
+                                            ).First();
+                    GL.GamesViewList.Add(games);
+                    i++;
+                }
+                return View(GL);
             }
             
         }
@@ -184,17 +224,5 @@ namespace TournamentTracker.Controllers
             }
         }
 
-        //Get The Events Games. Ajax
-        public JsonResult EventGames(int EventID)
-        {
-            string test = "Hi";
-            return Json(test);
-        }
-        //Add Game
-        public JsonResult AddGames(int EventID)
-        {
-            string test = "Hi";
-            return Json(test);
-        }
     }
 }

@@ -1,0 +1,114 @@
+@model TournamentTracker.Models.GameModels.GamesRules
+
+<form asp-action="EditGame">
+    <div class="form-horizontal">
+        <h4>GamesRules</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="GameRulesID" />
+        <div class="form-group">
+            <label asp-for="EventID" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="EventID" class="form-control" asp-items="ViewBag.EventID"></select>
+                <span asp-validation-for="EventID" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ExtraRules" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ExtraRules" class="form-control" />
+                <span asp-validation-for="ExtraRules" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GameLength" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="GameLength" class="form-control" />
+                <span asp-validation-for="GameLength" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrimaryMission1" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="PrimaryMission1" class="form-control" asp-items="ViewBag.PrimaryMission1"></select>
+                <span asp-validation-for="PrimaryMission1" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrimaryMission2" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="PrimaryMission2" class="form-control" asp-items="ViewBag.PrimaryMission2"></select>
+                <span asp-validation-for="PrimaryMission2" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrimaryMissionDrawScore" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrimaryMissionDrawScore" class="form-control" />
+                <span asp-validation-for="PrimaryMissionDrawScore" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrimaryMissionWinScore" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrimaryMissionWinScore" class="form-control" />
+                <span asp-validation-for="PrimaryMissionWinScore" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Round" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Round" class="form-control" />
+                <span asp-validation-for="Round" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SecondaryMission1" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="SecondaryMission1" class="form-control" asp-items="ViewBag.SecondaryMission1"></select>
+                <span asp-validation-for="SecondaryMission1" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SecondaryMission2" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="SecondaryMission2" class="form-control" asp-items="ViewBag.SecondaryMission2"></select>
+                <span asp-validation-for="SecondaryMission2" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SecondaryMission3" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SecondaryMission3" class="form-control" />
+                <span asp-validation-for="SecondaryMission3" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SecondaryMissionDrawScore" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SecondaryMissionDrawScore" class="form-control" />
+                <span asp-validation-for="SecondaryMissionDrawScore" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SecondaryMissionWinScore" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SecondaryMissionWinScore" class="form-control" />
+                <span asp-validation-for="SecondaryMissionWinScore" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

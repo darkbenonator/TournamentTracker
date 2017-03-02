@@ -63,4 +63,8 @@ namespace TournamentTracker.Models.TournamentModels
         public IList<GamesViewModel> GamesViewList { get; set; }
     }
 
+    public class GamesEdit
+    {
+        public List<GamesRules> GamesViewList { get; set; }
+    }
 }

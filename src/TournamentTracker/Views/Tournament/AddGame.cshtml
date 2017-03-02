@@ -1,6 +1,13 @@
 @model TournamentTracker.Models.GameModels.GamesRules
 
-<form asp-action="CreateGame">
+@{
+    ViewData["Title"] = "AddGame";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddGame</h2>
+
+<form asp-action="AddGame">
     <div class="form-horizontal">
         <h4>GamesRules</h4>
         <hr />

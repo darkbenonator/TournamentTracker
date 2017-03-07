@@ -90,8 +90,10 @@
 </form>
 
 <div>
-    <a asp-action="AddGame">Add Games</a>
-    <a asp-action="EditGame">Edit Games</a>
+    <a asp-action="AddGame"
+        asp-route-EventID="@Model.EventID">Add Games</a>
+    <a asp-action="EditGame"
+       asp-route-EventID="@Model.EventID">Edit Games</a>
     <a asp-action="Index">Back to List</a>
 </div>
 

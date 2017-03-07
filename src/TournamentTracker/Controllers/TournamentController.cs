@@ -218,7 +218,10 @@ namespace TournamentTracker.Controllers
         [Authorize]
         public IActionResult EditEvent(int EventID)
         {
-            if (!CheckOwner.IsOwner(_userManager.GetUserId(HttpContext.User), EventID)) return this.Index();
+            if (!CheckOwner.IsOwner(_userManager.GetUserId(HttpContext.User), EventID))
+            {
+                return this.Index();
+            }
             using (var context = new ApplicationDbContext())
             {
                 var query = (from L in context.Location
@@ -230,9 +233,20 @@ namespace TournamentTracker.Controllers
         }
 
         [Authorize]
-        public ActionResult AddGame()
+        public ActionResult AddGame(int EventID)
         {
             var model = new GamesRules();
+            using (var context = new ApplicationDbContext())
+            {
+                var GameRules = (from GR in context.Rules
+                                     select GR).ToList();
+                int Round = (from GR in context.GamesRules
+                             orderby GR.Round descending
+                             select GR.Round).First();
+                ViewBag.Round = Round + 1;
+                ViewBag.GameRulesDropDown = new SelectList(GameRules, "RuleID", "RuleName");
+                ViewBag.EventID = EventID;
+            }
             return View(model);
         }
 

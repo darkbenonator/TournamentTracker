@@ -51,4 +51,47 @@
         startDate: Date.now()
     });
     //////////////////////////////////////End Event Form Date selection//////////////////////////////////////////////////////
+    //////////////////////////////////////Event Add&Remove Player//////////////////////////////////////////////////////////
+    $('.AddPlayer').click(function (e) {
+        e.preventDefault();
+        var eventid = this.attr('id');
+        $.ajax({
+            url: "/Tournament/SignUpToEvent",
+            dataType: 'json',
+            type: "POST",
+            data: { EventID: eventid },
+            context: document.body
+        });
+    });
+
+    $('.RemovePlayer').click(function (e) {
+        e.preventDefault();
+        ///If it has this class it is the admin that is removing a player
+        if (this.hasClass("EventA")) {
+            var string = this.attr('id');
+            var arr = string.split('-');
+            var eventID = arr[1];
+            var UserID = arr[0];
+            $.ajax({
+                url: "/Tournament/SignUpToEvent",
+                dataType: 'json',
+                type: "POST",
+                data: { EventID: eventid, UserID:UserID },
+                context: document.body
+            });
+        }
+        else
+        {
+            var eventid = this.attr('id');
+            $.ajax({
+                url: "/Tournament/SignUpToEvent",
+                dataType: 'json',
+                type: "POST",
+                data: { EventID: eventid },
+                context: document.body
+            });
+        }
+    });
+    //////////////////////////////////////End Event Add&Remove Player//////////////////////////////////////////////////////
+
 }); //Document ready

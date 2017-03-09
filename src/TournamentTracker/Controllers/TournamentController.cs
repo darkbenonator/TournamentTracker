@@ -171,7 +171,7 @@ namespace TournamentTracker.Controllers
                 int Rounds = (from GR in context.GamesRules
                               where GR.EventID == EventID
                               orderby GR.Round
-                              select GR.Round).First();
+                              select GR.Round).FirstOrDefault();
                 int i = 0;
                 EventDetailsGameViewModel GL = new EventDetailsGameViewModel();
                 GL.Event = EventDetails;
@@ -291,5 +291,38 @@ namespace TournamentTracker.Controllers
                 }
         }
 
+        [Authorize]
+        public void SignUpToEvent(int EventID)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                EventPlayers Players = new EventPlayers();
+                Players.EventID = EventID;
+                Players.Player = _userManager.GetUserId(HttpContext.User);
+                context.Add(Players);
+                context.SaveChanges();
+            }
+        }
+
+        [Authorize]
+        public void UnsubscribeToEvent(int EventID, string UserID = "")
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                EventPlayers players = new EventPlayers();
+                players.EventID = EventID;
+                // If the UserID is not empty an EventManager is removing the User from the Event
+                if (!UserID.Equals(""))
+                {
+                    players.Player = UserID;        
+                }
+                else
+                {
+                    players.Player = _userManager.GetUserId(HttpContext.User);
+                }
+                context.Attach(players);
+                context.Remove(players);
+            }
+        }
     }
 }

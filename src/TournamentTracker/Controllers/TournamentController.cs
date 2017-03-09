@@ -105,7 +105,7 @@ namespace TournamentTracker.Controllers
                 context.Add(EO);
                 context.SaveChanges();
             }
-            return RedirectToAction("EditEvent", "Tournament",eventCreation);
+            return RedirectToAction("EditEvent", "Tournament", eventCreation);
         }
 
         //Load the location creation screen
@@ -239,10 +239,10 @@ namespace TournamentTracker.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var GameRules = (from GR in context.Rules
-                                     select GR).ToList();
+                                 select GR).ToList();
                 int Round = (from GR in context.GamesRules
                              orderby GR.Round descending
-                             select GR.Round).First();
+                             select GR.Round).FirstOrDefault();
                 ViewBag.Round = Round + 1;
                 ViewBag.GameRulesDropDown = new SelectList(GameRules, "RuleID", "RuleName");
                 ViewBag.EventID = EventID;
@@ -262,10 +262,11 @@ namespace TournamentTracker.Controllers
         }
 
         [Authorize]
-        public ActionResult RulesPartial()
+        public ActionResult LoadAddRule(int EventID)
         {
             var model = new Rules();
-            return PartialView(model);
+            ViewBag.EventID = EventID;
+            return View("AddRule", model);
         }
 
         [Authorize]
@@ -282,13 +283,14 @@ namespace TournamentTracker.Controllers
         }
 
         [Authorize]
-        public void CreateRule(Rules Rule)
+        public void CreateRule(int id,Rules Rule)
         {
-                using (var context = new ApplicationDbContext())
-                {
-                    context.Add(Rule);
-                    context.SaveChanges();
-                }
+            using (var context = new ApplicationDbContext())
+            {
+                context.Add(Rule);
+                context.SaveChanges();
+            }
+            AddGame(id);
         }
 
     }

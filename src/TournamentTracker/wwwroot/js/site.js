@@ -26,13 +26,13 @@
             data: { Name: input, Form: form },
             context: document.body
         }).done(function (result) {
-            if (form == "Location") {
-                if (result == true) {
+            if (form === "Location") {
+                if (result === true) {
                     $('.LocationName span').text(" Name already exists");
                 }
             }
-            else if (form = "Event") {
-                if (result == true) {
+            else if (form === "Event") {
+                if (result === true) {
                     $('.EventName span').replaceWith(" Name already exists");
                 }
             }

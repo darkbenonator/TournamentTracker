@@ -61,6 +61,7 @@ namespace TournamentTracker.Controllers
                                     join l in context.Location on E.LocationID equals l.LocationID
                                     join EO in context.EventOrganiser on E.EventID equals EO.EventID
                                     join u in context.Users on EO.UserID equals u.Id
+                                  
                                     select (new EventTable()
                                     {
                                         EventID = E.EventID,
@@ -172,6 +173,7 @@ namespace TournamentTracker.Controllers
                               where GR.EventID == EventID
                               orderby GR.Round
                               select GR.Round).FirstOrDefault();
+
                 int i = 0;
                 EventDetailsGameViewModel GL = new EventDetailsGameViewModel();
                 GL.Event = EventDetails;

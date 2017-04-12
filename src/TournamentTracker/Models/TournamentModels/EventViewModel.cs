@@ -22,6 +22,7 @@ namespace TournamentTracker.Models.TournamentModels
             public DateTime EndTime { get; set; }
             public int EventID { get; set; }
             public string EventOrganiser { get; set; }
+            public bool SignedUp { get; set; }
         }
     }
 

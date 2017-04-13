@@ -54,6 +54,7 @@ namespace TournamentTracker.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            string UserID = _userManager.GetUserId(HttpContext.User);
             using (var context = new ApplicationDbContext())
             {
                 EventViewModel eventVM = new EventViewModel();
@@ -61,7 +62,16 @@ namespace TournamentTracker.Controllers
                                     join l in context.Location on E.LocationID equals l.LocationID
                                     join EO in context.EventOrganiser on E.EventID equals EO.EventID
                                     join u in context.Users on EO.UserID equals u.Id
-                                  
+                                    join sn in context.EventPlayers  on new
+                                    {
+                                        Key1 = E.EventID,
+                                        Key2 = UserID
+                                    } equals new
+                                    {
+                                        Key1 = sn.EventID,
+                                        Key2 = sn.Player
+                                    } into lt
+                                    from sn in lt.DefaultIfEmpty()
                                     select (new EventTable()
                                     {
                                         EventID = E.EventID,
@@ -72,7 +82,8 @@ namespace TournamentTracker.Controllers
                                         StartTime = E.StartTime,
                                         EndTime = E.EndTime,
                                         LocationCity = l.City,
-                                        EventOrganiser = EO.UserID
+                                        EventOrganiser = EO.UserID,
+                                        SignedUp = sn == null ? false : true
                                     })).ToList();
                 return View("Events", eventVM);
             }
@@ -139,6 +150,7 @@ namespace TournamentTracker.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                //The events details
                 EventDetailsViewModel EventDetails = new EventDetailsViewModel();
                 EventDetails = (from E in context.Event
                                 join L in context.Location on E.LocationID equals L.LocationID
@@ -175,8 +187,10 @@ namespace TournamentTracker.Controllers
                               select GR.Round).FirstOrDefault();
 
                 int i = 0;
+                //The view model
                 EventDetailsGameViewModel GL = new EventDetailsGameViewModel();
                 GL.Event = EventDetails;
+                //Each round of the event
                 while (i <= Rounds)
                 {
                     GamesViewModel games = (from GR in context.GamesRules
@@ -211,6 +225,26 @@ namespace TournamentTracker.Controllers
                     GL.GamesViewList.Add(games);
                     i++;
                 }
+                GL.EventPlayers = (from ep in context.EventPlayers
+                                   join u in context.Users on ep.Player equals u.Id
+                                   where ep.EventID == EventID
+                                   select new EventPlayersModel
+                                   {
+                                       UserID = u.Id,
+                                       Username = u.UserName
+                                   }
+                                   ).ToList();
+                //Signed up players
+                string UserID = _userManager.GetUserId(HttpContext.User);
+                if (GL.EventPlayers.Any(x => x.UserID == UserID))
+                {
+                    GL.SignedUp = true;
+                }
+                else
+                {
+                    GL.SignedUp = false;
+                }
+
                 return View(GL);
             }
 

@@ -62,10 +62,18 @@ namespace TournamentTracker.Models.TournamentModels
     {
         public EventDetailsViewModel Event { get; set; }
         public IList<GamesViewModel> GamesViewList { get; set; }
+        public IList<EventPlayersModel> EventPlayers { get; set; }
+        public bool SignedUp { get; set; }
     }
 
     public class GamesEdit
     {
         public List<GamesRules> GamesViewList { get; set; }
+    }
+
+    public class EventPlayersModel
+    {
+        public string UserID { get; set; }
+        public string Username { get; set; }
     }
 }

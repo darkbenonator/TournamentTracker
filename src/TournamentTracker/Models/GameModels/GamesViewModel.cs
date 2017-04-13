@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace TournamentTracker.Models.GameModels
 {
+    //This is for the events details page
     public class GamesViewModel
     {
         public int Round { get; set; }
@@ -23,7 +24,12 @@ namespace TournamentTracker.Models.GameModels
         public int SecondaryMissionWinScore { get; set; }
         public int SecondaryMissionDrawScore { get; set; }
         public TimeSpan GameLength { get; set; }
+    }
 
+    public class PlayStart
+    {
+        public List<GamesViewModel> GameRules;
+        public string OrganiserID;
     }
 
 

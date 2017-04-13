@@ -66,7 +66,14 @@
                     }
                     else
                     {
-                        <a asp-action="SignUpToEvent" asp-route-EventID="@item.EventID">Sign Up</a>
+                        if (item.SignedUp)
+                        {
+                            <a asp-action="UnsubscribeToEvent" asp-route-EventID="@item.EventID">Leave Event</a>
+                        }
+                        else
+                        {
+                            <a asp-action="SignUpToEvent" asp-route-EventID="@item.EventID">Sign Up</a>
+                        }
                     }
                     <a asp-action="EventDetails" asp-route-EventID="@item.EventID">Details</a>
                     @*<a asp-action="Delete" asp-route-id="@item.EventID">Delete</a>*@

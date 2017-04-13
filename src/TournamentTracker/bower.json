@@ -6,7 +6,8 @@
     "jquery-validation": "1.15.0",
     "jquery-validation-unobtrusive": "~3.2.6",
     "jquery": "2.2.3",
-    "smalot-bootstrap-datetimepicker": "2.3.10"
+    "smalot-bootstrap-datetimepicker": "2.3.10",
+    "handlebars": "~4.0.5"
   },
   "resolutions": {
     "jquery": ">=1.9",

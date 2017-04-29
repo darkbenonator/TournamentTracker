@@ -46,5 +46,6 @@ namespace TournamentTracker.Data
         public DbSet<GamesRules> GamesRules { get; set; }
         public DbSet<Games> Games { get; set; }
         public DbSet<GameScores> GameScores { get; set; }
+        public DbSet<GameConnectedPlayers>GameConnectedPlayers { get; set; }
     }
 }

@@ -8,6 +8,9 @@ namespace TournamentTracker.Hub
 {
     public class PlayHub : Microsoft.AspNetCore.SignalR.Hub
     {
+        public void connectUser(string userID, int GameID)
+        {
 
+        }
     }
 }

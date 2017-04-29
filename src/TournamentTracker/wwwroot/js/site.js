@@ -3,7 +3,7 @@ var EventTable;
 //////////////End Variables ///////////////////
 $(document).ready(function () {
     //////////////////////////////////////EventsDataTables//////////////////////////////////////////////////////
-    if (window.location.pathname == '/tournament' || window.location.pathname == '/tournament/') {
+    if (window.location.pathname === '/tournament' || window.location.pathname === '/tournament/') {
         var columns = [
             { "data": "eventName" },
             { "data": "locationName" },
@@ -16,11 +16,11 @@ $(document).ready(function () {
                 "orderable": false,
                 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                     $(nTd).html("");
-                    if (oData.eventOrganiser == UserID) {
+                    if (oData.eventOrganiser === UserID) {
                         $(nTd).append("<a href='tournament/EditEvent?EventID=" + oData.eventID + "'>Edit Event</a><br>");
                     }
                     else {
-                        if (oData.signedUp == true) {
+                        if (oData.signedUp === true) {
                             $(nTd).append("<a href='tournament/UnsubscribeToEvent?EventID=" + oData.eventID + "'>Leave Event</a><br>");
                         }
                         else {

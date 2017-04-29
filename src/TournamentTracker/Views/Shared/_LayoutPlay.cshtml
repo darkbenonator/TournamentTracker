@@ -40,9 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
         @RenderBody()
-    </div>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -51,7 +49,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/lib/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/Play.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -65,7 +63,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/TypeWatch/2.2.2/jquery.typewatch.min.js"></script>
         <script src="~/lib/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/Play.min.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("scripts", required: false)

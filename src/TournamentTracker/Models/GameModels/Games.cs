@@ -49,7 +49,7 @@ namespace TournamentTracker.Models.GameModels
         public Rules SecondaryMission1Obj { get; set; }
         [ForeignKey("SecondaryMission2")]
         public Rules SecondaryMission2Obj { get; set; }
-        [ForeignKey("SecondaryMissio3")]
+        [ForeignKey("SecondaryMission3")]
         public Rules SecondaryMission3Obj { get; set; }
         [ForeignKey("EventID")]
         public Event eventObj { get; set; }
@@ -61,6 +61,8 @@ namespace TournamentTracker.Models.GameModels
         public int GameID { get; set; }
         public TimeSpan GameLength { get; set; }
         public TimeSpan CurrentGameTime { get; set; }
+        public DateTime StartedTime { get; set; }
+        public DateTime EndTime { get; set; }
         [Required]
         public string Player1 { get; set; }
         [Required]
@@ -96,5 +98,21 @@ namespace TournamentTracker.Models.GameModels
         public int SportsmanScore { get; set; }
         [ForeignKey("Player")]
         public virtual ApplicationUser PlayerObj { get; set; }
+    }
+
+    public class GameConnectedPlayers
+    {
+        [Key()]
+        public int ConnectedPlayerID { get; set; }
+        public string Player { get; set; }
+        [StringLength(200)]
+        public string ConnectionID { get; set; }
+        public DateTime ConnectedTime { get; set; }
+        public DateTime DisconnectedTime { get; set; }
+        public int GameID { get; set; }
+        [ForeignKey("Player")]
+        public virtual ApplicationUser PlayerObj { get; set; }
+        [ForeignKey("GameID")]
+        public Games GameObj { get; set; }
     }
 }

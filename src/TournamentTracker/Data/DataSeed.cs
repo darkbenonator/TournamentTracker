@@ -223,15 +223,16 @@ namespace TournamentTracker.Data
             {
                 var user = new ApplicationUser
                 {
-                    UserName = "tester",
-                    NormalizedEmail = "TESTER@LIVE.CO.UK",
-                    NormalizedUserName = "TESTER",
+                    UserName = "Darkbeno",
+                    NormalizedEmail = "KHORNE2009@LIVE.CO.UK",
+                    NormalizedUserName = "DARKBENO",
                     Firstname = "Ben",
                     Lastname = "Haigh",
-                    Email = "tester@live.co.uk",
+                    Email = "khorne2009@live.co.uk",
+                    SecurityStamp = Guid.NewGuid().ToString("D")
                 };
                 var password = new PasswordHasher<ApplicationUser>();
-                var hashed = password.HashPassword(user, "Buster222");
+                var hashed = password.HashPassword(user, "test222");
                 user.PasswordHash = hashed;
                 var userStore = new UserStore<ApplicationUser>(context);
                 await userStore.CreateAsync(user);
@@ -247,6 +248,7 @@ namespace TournamentTracker.Data
                     NormalizedUserName = "TESTUSER",
                     Lastname = "Haigh",
                     Email = "TestUser@live.co.uk",
+                    SecurityStamp = Guid.NewGuid().ToString("D")
                 };
                 var password = new PasswordHasher<ApplicationUser>();
                 var hashed = password.HashPassword(user, "Test123456");
@@ -265,6 +267,7 @@ namespace TournamentTracker.Data
                     NormalizedEmail = "TESTUSER2@LIVE.CO.UK",
                     NormalizedUserName = "TESTUSER2",
                     Email = "TestUser2@live.co.uk",
+                    SecurityStamp = Guid.NewGuid().ToString("D")
                 };
 
                 var password = new PasswordHasher<ApplicationUser>();

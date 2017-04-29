@@ -53,7 +53,7 @@ namespace TournamentTracker.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "FacebookURL",
                 table: "Location",
-                maxLength: 30,
+                maxLength: 150,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
@@ -65,19 +65,19 @@ namespace TournamentTracker.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "TwitterURL",
                 table: "Location",
-                maxLength: 30,
+                maxLength: 150,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "WebsiteURL",
                 table: "Location",
-                maxLength: 30,
+                maxLength: 150,
                 nullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "ListURL",
                 table: "EventArmyList",
-                maxLength: 30,
+                maxLength: 150,
                 nullable: true);
 
             migrationBuilder.AlterColumn<string>(
@@ -106,7 +106,7 @@ namespace TournamentTracker.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "EventPackURL",
                 table: "Event",
-                maxLength: 30,
+                maxLength: 150,
                 nullable: true);
 
             migrationBuilder.AlterColumn<string>(

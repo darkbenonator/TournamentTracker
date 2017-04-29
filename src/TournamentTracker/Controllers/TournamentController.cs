@@ -158,6 +158,7 @@ namespace TournamentTracker.Controllers
                                 where E.EventID == EventID
                                 select (new EventDetailsViewModel()
                                 {
+                                    
                                     LocationName = L.LocationName,
                                     AddressLine1 = L.AddressLine1,
                                     AddressLine2 = L.AddressLine2,
@@ -172,6 +173,7 @@ namespace TournamentTracker.Controllers
 
                                     EventOrganiserID = EO.UserID,
 
+                                    EventID = E.EventID,
                                     Description = E.Description,
                                     EndTime = E.EndTime,
                                     StartTime = E.StartTime,
@@ -190,40 +192,43 @@ namespace TournamentTracker.Controllers
                 //The view model
                 EventDetailsGameViewModel GL = new EventDetailsGameViewModel();
                 GL.Event = EventDetails;
+                GL.GamesViewList = new List<GamesViewModel>();
                 //Each round of the event
-                while (i <= Rounds)
-                {
-                    GamesViewModel games = (from GR in context.GamesRules
-                                            join Mis1 in context.Rules on GR.PrimaryMission1 equals Mis1.RuleID
-                                            join Mis2 in context.Rules on GR.PrimaryMission2 equals Mis2.RuleID
-                                            join Sec1 in context.Rules on GR.SecondaryMission1 equals Sec1.RuleID
-                                            join Sec2 in context.Rules on GR.SecondaryMission2 equals Sec2.RuleID
-                                            join Sec3 in context.Rules on GR.SecondaryMission3 equals Sec3.RuleID
-                                            where GR.EventID == EventID
-                                            where GR.Round == i
-                                            select new GamesViewModel()
-                                            {
-                                                Round = GR.Round,
+                if (Rounds > 0) {
+                    while (i <= Rounds)
+                    {
+                        GamesViewModel games = (from GR in context.GamesRules
+                                                join Mis1 in context.Rules on GR.PrimaryMission1 equals Mis1.RuleID
+                                                join Mis2 in context.Rules on GR.PrimaryMission2 equals Mis2.RuleID
+                                                join Sec1 in context.Rules on GR.SecondaryMission1 equals Sec1.RuleID
+                                                join Sec2 in context.Rules on GR.SecondaryMission2 equals Sec2.RuleID
+                                                join Sec3 in context.Rules on GR.SecondaryMission3 equals Sec3.RuleID
+                                                where GR.EventID == EventID
+                                                where GR.Round == i
+                                                select new GamesViewModel()
+                                                {
+                                                    Round = GR.Round,
 
-                                                PrimaryMissionRuleName = Mis1.RuleName,
-                                                PrimaryMissionRule = Mis1.Rule,
-                                                Primary2MissionRuleName = Mis2.RuleName,
-                                                Primary2MissionRule = Mis2.Rule,
-                                                PrimaryMissionWinScore = GR.PrimaryMissionWinScore,
-                                                PrimaryMissionDrawScore = GR.PrimaryMissionDrawScore,
+                                                    PrimaryMissionRuleName = Mis1.RuleName,
+                                                    PrimaryMissionRule = Mis1.Rule,
+                                                    Primary2MissionRuleName = Mis2.RuleName,
+                                                    Primary2MissionRule = Mis2.Rule,
+                                                    PrimaryMissionWinScore = GR.PrimaryMissionWinScore,
+                                                    PrimaryMissionDrawScore = GR.PrimaryMissionDrawScore,
 
-                                                SecondaryMissionRuleName = Sec1.RuleName,
-                                                SecondaryMissionRule = Sec1.Rule,
-                                                Secondary2MissionRuleName = Sec2.RuleName,
-                                                Secondary2MissionRule = Sec2.Rule,
-                                                Secondary3MissionRuleName = Sec3.RuleName,
-                                                Secondary3MissionRule = Sec3.Rule,
-                                                SecondaryMissionDrawScore = GR.SecondaryMissionDrawScore,
-                                                SecondaryMissionWinScore = GR.SecondaryMissionWinScore
-                                            }
-                                            ).First();
-                    GL.GamesViewList.Add(games);
-                    i++;
+                                                    SecondaryMissionRuleName = Sec1.RuleName,
+                                                    SecondaryMissionRule = Sec1.Rule,
+                                                    Secondary2MissionRuleName = Sec2.RuleName,
+                                                    Secondary2MissionRule = Sec2.Rule,
+                                                    Secondary3MissionRuleName = Sec3.RuleName,
+                                                    Secondary3MissionRule = Sec3.Rule,
+                                                    SecondaryMissionDrawScore = GR.SecondaryMissionDrawScore,
+                                                    SecondaryMissionWinScore = GR.SecondaryMissionWinScore
+                                                }
+                                                ).First();
+                        GL.GamesViewList.Add(games);
+                        i++;
+                    }
                 }
                 GL.EventPlayers = (from ep in context.EventPlayers
                                    join u in context.Users on ep.Player equals u.Id
@@ -340,6 +345,7 @@ namespace TournamentTracker.Controllers
                 context.Add(Players);
                 context.SaveChanges();
             }
+            Response.Redirect("/tournament");
         }
 
         [Authorize]
@@ -361,6 +367,7 @@ namespace TournamentTracker.Controllers
                 context.Attach(players);
                 context.Remove(players);
             }
+            Response.Redirect("/tournament");
         }
     }
 }

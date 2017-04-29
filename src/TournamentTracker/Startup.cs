@@ -125,7 +125,7 @@ namespace TournamentTracker
 
             app.UseWebSockets();
             app.UseSignalR();
-            seeder.SeedRules();
+            seeder.Seed();
         }
     }
 }

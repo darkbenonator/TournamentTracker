@@ -1,7 +1,11 @@
 @model TournamentTracker.Models.TournamentModels.EventViewModel
 @using Microsoft.AspNetCore.Identity
-
 @inject UserManager<ApplicationUser> UserManager
+
+<script>
+    var EventTableData = @Html.Raw(@Json.Serialize(@Model.evtTable));
+    var UserID = @Html.Raw(@Json.Serialize(@UserManager.GetUserId(User)));
+</script>
 
 @{
     ViewData["Title"] = "Events";
@@ -13,7 +17,7 @@
 <p>
     <a asp-action="CreateEvent">Create New</a>
 </p>
-<table class="table">
+<table class="table" id="EventsTable">
     <thead>
         <tr>
             <th>
@@ -38,47 +42,6 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.evtTable)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocationName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocationCity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @if (item.EventOrganiser == UserManager.GetUserId(User))
-                    {
-                        <a asp-action="EditEvent" asp-route-EventID="@item.EventID">Edit</a>
-                    }
-                    else
-                    {
-                        if (item.SignedUp)
-                        {
-                            <a asp-action="UnsubscribeToEvent" asp-route-EventID="@item.EventID">Leave Event</a>
-                        }
-                        else
-                        {
-                            <a asp-action="SignUpToEvent" asp-route-EventID="@item.EventID">Sign Up</a>
-                        }
-                    }
-                    <a asp-action="EventDetails" asp-route-EventID="@item.EventID">Details</a>
-                    @*<a asp-action="Delete" asp-route-id="@item.EventID">Delete</a>*@
-                </td>
-            </tr>
-        }
+
     </tbody>
 </table>

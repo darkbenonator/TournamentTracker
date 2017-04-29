@@ -1,19 +1,60 @@
-﻿$(document).ready(function () {
+﻿//////////////Variables////////////////////////
+var EventTable;
+//////////////End Variables ///////////////////
+$(document).ready(function () {
+    //////////////////////////////////////EventsDataTables//////////////////////////////////////////////////////
+    if (window.location.pathname == '/tournament' || window.location.pathname == '/tournament/') {
+        var columns = [
+            { "data": "eventName" },
+            { "data": "locationName" },
+            { "data": "locationCity" },
+            { "data": "startTime" },
+            { "data": "endTime" },
+            { "data": "description" },
+            {
+                "data": null,
+                "orderable": false,
+                "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("");
+                    if (oData.eventOrganiser == UserID) {
+                        $(nTd).append("<a href='tournament/EditEvent?EventID=" + oData.eventID + "'>Edit Event</a><br>");
+                    }
+                    else {
+                        if (oData.signedUp == true) {
+                            $(nTd).append("<a href='tournament/UnsubscribeToEvent?EventID=" + oData.eventID + "'>Leave Event</a><br>");
+                        }
+                        else {
+                            $(nTd).append("<a href='tournament/SignUpToEvent?EventID=" + oData.eventID + "'>Sign Up</a><br>");
+                        }
+                    }
+                    $(nTd).append("<a href='tournament/EventDetails?EventID=" + oData.eventID + "'>Event Details</a><br>");
+                }
+            }
+        ];
+        //Sets the buttons if they are the owner or not
+        $('#EventsTable').DataTable({
+            data: EventTableData,
+            order: [[3, "asc"], [1, "asc"]],
+            responsive: true,
+            columns: columns
+        });
+    }
+    //////////////////////////////////////EndEventsDataTables//////////////////////////////////////////////////////
     //////////////////////////////////////Form Names Unique//////////////////////////////////////////////////////
     //Options for typing watch
     var optionsTop = {
-        callback: function (value) { checkname(value,window.location.pathname) },
+        callback: function (value) { checkname(value, window.location.pathname); },
         wait: 1000,
         highlight: true,
         captureLength: 0
-    }
+    };
 
     //When User has done typing
     $('.NameWatch').typeWatch(optionsTop);
 
     //Checks with the Controller to see if the name entered is unique
     function checkname(input, form) {
-        if(form.includes("Location")){
+        if (form.includes("Location")) {
             form = "Location";
         }
         else if (form.includes("Event")) {
@@ -76,12 +117,11 @@
                 url: "/Tournament/SignUpToEvent",
                 dataType: 'json',
                 type: "POST",
-                data: { EventID: eventid, UserID:UserID },
+                data: { EventID: eventid, UserID: UserID },
                 context: document.body
             });
         }
-        else
-        {
+        else {
             var eventid = this.attr('id');
             $.ajax({
                 url: "/Tournament/SignUpToEvent",

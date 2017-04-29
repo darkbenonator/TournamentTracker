@@ -7,7 +7,11 @@
     "jquery-validation-unobtrusive": "~3.2.6",
     "jquery": "2.2.3",
     "smalot-bootstrap-datetimepicker": "2.3.10",
-    "handlebars": "~4.0.5"
+    "handlebars": "~4.0.5",
+    "datatables.net": "~1.10.15",
+    "datatables.net-bs": "~2.1.1",
+    "datatables.net-responsive": "~2.1.1",
+    "datatables.net-responsive-bs": "~2.1.1"
   },
   "resolutions": {
     "jquery": ">=1.9",

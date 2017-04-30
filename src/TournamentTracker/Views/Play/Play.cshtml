@@ -9,6 +9,8 @@
 }
 
 <div class="wrapper ">
+    <div class="SelectEventID"  id="@Model.EventID"></div>
+    <div class="SelectUserID" id="@UserManager.GetUserId(User)"></div>
     <div class="container-fluid">
         @Html.Partial("_Nav", Model)
         @*The organiser partial view*@

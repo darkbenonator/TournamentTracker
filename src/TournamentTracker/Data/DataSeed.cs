@@ -21,7 +21,8 @@ namespace TournamentTracker.Data
                 {
                     await seedUsers();
                 }
-                if (!context.Location.Any()) {
+                if (!context.Location.Any())
+                {
                     SeedLocations();
                 }
                 if (!context.Rules.Any())
@@ -31,8 +32,10 @@ namespace TournamentTracker.Data
                 if (!context.Event.Any())
                 {
                     SeedEvents();
+                    Games();
+
                 }
-                
+
             }
         }
         private DateTime GenererateRandomDate()
@@ -377,6 +380,21 @@ namespace TournamentTracker.Data
                        {
                            RuleName = "First Blood test3",
                            Rule = "Kill the first unit"
+                       },
+                       new Rules
+                       {
+                           RuleName = "First Blood test4",
+                           Rule = "Kill the first unit"
+                       },
+                       new Rules
+                       {
+                           RuleName = "First Blood test5",
+                           Rule = "Kill the first unit"
+                       },
+                       new Rules
+                       {
+                           RuleName = "First Blood test6",
+                           Rule = "Kill the first unit"
                        }
                     };
                     foreach (Rules rule in rules)
@@ -386,6 +404,14 @@ namespace TournamentTracker.Data
                         context.SaveChanges();
                     }
                 }
+            }
+        }
+
+        private void Games()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+               
             }
         }
 

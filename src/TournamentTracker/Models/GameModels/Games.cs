@@ -109,10 +109,10 @@ namespace TournamentTracker.Models.GameModels
         public string ConnectionID { get; set; }
         public DateTime ConnectedTime { get; set; }
         public DateTime DisconnectedTime { get; set; }
-        public int GameID { get; set; }
+        public int EventID { get; set; }
         [ForeignKey("Player")]
         public virtual ApplicationUser PlayerObj { get; set; }
-        [ForeignKey("GameID")]
-        public Games GameObj { get; set; }
+        [ForeignKey("EventID")]
+        public Event EventObj { get; set; }
     }
 }

@@ -72,17 +72,17 @@ namespace TournamentTracker.Data.Migrations
                     ConnectedTime = table.Column<DateTime>(nullable: false),
                     ConnectionID = table.Column<string>(maxLength: 200, nullable: true),
                     DisconnectedTime = table.Column<DateTime>(nullable: false),
-                    GameID = table.Column<int>(nullable: false),
+                    EventID = table.Column<int>(nullable: false),
                     Player = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GameConnectedPlayers", x => x.ConnectedPlayerID);
                     table.ForeignKey(
-                        name: "FK_GameConnectedPlayers_Games_GameID",
-                        column: x => x.GameID,
-                        principalTable: "Games",
-                        principalColumn: "GameID",
+                        name: "FK_GameConnectedPlayers_Events_EventID",
+                        column: x => x.EventID,
+                        principalTable: "Event",
+                        principalColumn: "EventID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GameConnectedPlayers_AspNetUsers_Player",
@@ -98,9 +98,9 @@ namespace TournamentTracker.Data.Migrations
                 column: "SecondaryMission3");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameConnectedPlayers_GameID",
+                name: "IX_GameConnectedPlayers_EventID",
                 table: "GameConnectedPlayers",
-                column: "GameID");
+                column: "EventID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GameConnectedPlayers_Player",

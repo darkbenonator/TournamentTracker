@@ -65,6 +65,7 @@ namespace TournamentTracker.Controllers
                 Games.OrganiserID = (from EO in context.EventOrganiser
                                      where EO.EventID == EventID
                                      select EO.UserID).First();
+                Games.EventID = EventID;
                 return View("Play", Games);  
             }
         }

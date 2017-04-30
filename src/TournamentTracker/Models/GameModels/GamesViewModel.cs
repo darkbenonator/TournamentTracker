@@ -30,7 +30,19 @@ namespace TournamentTracker.Models.GameModels
     {
         public List<GamesViewModel> GameRules;
         public string OrganiserID;
+        public int EventID;
     }
 
+    public class Players
+    {
+        public string username { get; set; }
+        public string Firstname { get; set; }
+        public string lastname { get; set; }
+        public bool active { get; set; }
+    }
 
+    public class PlayersList
+    {
+        public IList<Players> playerList { get; set; }
+    }
 }

@@ -21,7 +21,7 @@ namespace TounamentTracker.Hubs
                                               select CP.ConnectionID).ToList();
                 foreach (string ConnectionID in connectionIDs)
                 {
-                    Clients.Client(Context.ConnectionId).test(JsonConvert.SerializeObject(players));
+                    Clients.Client(Context.ConnectionId).test(JsonConvert.SerializeObject(players.playerList));
                 }
             }
         }

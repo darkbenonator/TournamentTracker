@@ -11,14 +11,17 @@ $(document).ready(function () {
 
     };
 
-    $.connection.playHub.client.test= function(players){
+    $.connection.playHub.client.test = function (players) {
+        alert(JSON.stringify(players));
         var PlayersList = JSON.parse(players);
-        $.each(PlayersList, function (index, value) {
+        var i = 0;
+        $.each($.parseJSON(players), function () {
+            i++;
             $('#PlayersList').append(
-                '<a href="#" class="list-group-item">' + value[0].username + ' <span class="pull-right text-muted small">' + value[0].active + '</span></a>'
-               
+                '<a href="#" class="list-group-item">' + this.username + ' <span class="pull-right text-muted small">' + this.active + '</span></a>'
                 );
         });
+        alert(i);
     };
 
     $.connection.hub.start().done(function () {

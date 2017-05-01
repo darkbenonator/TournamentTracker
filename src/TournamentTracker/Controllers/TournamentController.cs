@@ -274,6 +274,26 @@ namespace TournamentTracker.Controllers
         }
 
         [Authorize]
+        public IActionResult SaveEditedEvent(Event e)
+        {
+            if (!CheckOwner.IsOwner(_userManager.GetUserId(HttpContext.User), e.EventID))
+            {
+                return this.Index();
+            }
+            using (var context = new ApplicationDbContext())
+            {
+                Event m = context.Event.Find(e.EventID);
+                if (m == null)
+                {
+                    return this.Index();
+                }
+                context.Entry(m).CurrentValues.SetValues(e);
+                context.SaveChanges();
+                return this.Index();
+            }
+        }
+
+        [Authorize]
         public ActionResult AddGame(int EventID)
         {
             var model = new GamesRules();

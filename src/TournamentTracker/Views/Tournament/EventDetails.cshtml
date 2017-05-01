@@ -1,0 +1,276 @@
+@model TournamentTracker.Models.TournamentModels.EventDetailsGameViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "EventDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EventDetails</h2>
+<div>
+    <h4>EventDetailsViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.LocationName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.LocationName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.AddressLine1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.AddressLine1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.AddressLine2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.AddressLine2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.County)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.County)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.PostCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.PostCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.FacebookURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.FacebookURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.WebsiteURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.WebsiteURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.TwitterURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.TwitterURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EventID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.EventID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EventName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.EventName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EventPackURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.EventPackURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.NumberOfTables)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.NumberOfTables)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EventRestrictions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.EventRestrictions)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.FoodDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.FoodDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.StartTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.StartTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EndTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.EndTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EventOrganiserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Event.EventOrganiserID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h4>Players</h4>
+    @foreach (var player in Model.EventPlayers)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                <a asp-controller="UserProfile" asp-action="Index" asp-route-UserID="@player.UserID">@player.Username</a>
+            </dt>
+        </dl>
+    }
+</div>
+@if (Model.GamesViewList.Count > 0) {
+    <div>
+        <h4>GamesViewModel</h4>
+        <hr />
+        @foreach (var Game in Model.GamesViewList) {
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Round)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Round)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.PrimaryMissionRuleName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.PrimaryMissionRuleName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.PrimaryMissionRule)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.PrimaryMissionRule)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Primary2MissionRuleName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Primary2MissionRuleName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Primary2MissionRule)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Primary2MissionRule)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.SecondaryMissionRuleName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.SecondaryMissionRuleName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.SecondaryMissionRule)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.SecondaryMissionRule)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Secondary2MissionRuleName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Secondary2MissionRuleName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Secondary2MissionRule)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Secondary2MissionRule)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Secondary3MissionRuleName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Secondary3MissionRuleName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.Secondary3MissionRule)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.Secondary3MissionRule)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.PrimaryMissionWinScore)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.PrimaryMissionWinScore)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.PrimaryMissionDrawScore)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.PrimaryMissionDrawScore)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.SecondaryMissionWinScore)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.SecondaryMissionWinScore)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.SecondaryMissionDrawScore)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.SecondaryMissionDrawScore)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => Game.GameLength)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => Game.GameLength)
+                </dd>
+            </dl>
+        }
+    </div>
+}
+<div>
+    @if (Model.Event.EventOrganiserID == UserManager.GetUserId(User))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Event.EventID }) 
+    }
+    else
+    {
+        if (Model.SignedUp)
+        {
+            <a asp-action="UnsubscribeToEvent" asp-route-EventID="@Model.Event.EventID">Leave Event</a>
+        }
+        else
+        {
+            <a asp-action="SignUpToEvent" asp-route-EventID="@Model.Event.EventID">Sign Up</a>
+        }
+    }
+    <a asp-action="Index">Back to Events</a>
+</div>

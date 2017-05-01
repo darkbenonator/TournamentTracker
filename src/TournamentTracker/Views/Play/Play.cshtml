@@ -1,0 +1,32 @@
+@model TournamentTracker.Models.GameModels.PlayStart
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Tournament";
+    Layout = "~/Views/Shared/_LayoutPlay.cshtml";
+}
+
+<div class="wrapper ">
+    <div class="SelectEventID"  id="@Model.EventID"></div>
+    <div class="SelectUserID" id="@UserManager.GetUserId(User)"></div>
+    <div class="container-fluid">
+        @Html.Partial("_Nav", Model)
+        @*The organiser partial view*@
+        @if (Model.OrganiserID == UserManager.GetUserId(User))
+        {
+            @Html.Partial("_OrganiserPartial", Model)
+        }
+
+        @*End of The organiser partial view*@
+
+
+        @*Standard Player View*@
+        @Html.Partial("_StandardPlayer", Model.GameRules)
+        @*End of standard player view*@
+   </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -13,6 +13,7 @@ using TournamentTracker.Data;
 using TournamentTracker.Models;
 using TournamentTracker.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace TournamentTracker
 {
@@ -35,7 +36,9 @@ namespace TournamentTracker
             }
 
             builder.AddEnvironmentVariables();
+            
             Configuration = builder.Build();
+
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -43,6 +46,9 @@ namespace TournamentTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -52,6 +58,20 @@ namespace TournamentTracker
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            var settings = new JsonSerializerSettings();
+            settings.ContractResolver = new SignalRContractResolver();
+
+            var serializer = JsonSerializer.Create(settings);
+
+            services.Add(new ServiceDescriptor(typeof(JsonSerializer),
+                         provider => serializer,
+                         ServiceLifetime.Transient));
+
+            services.AddSignalR(options =>
+            {
+                options.Hubs.EnableDetailedErrors = true;
+            });
 
             services.AddMvc();
 
@@ -69,10 +89,11 @@ namespace TournamentTracker
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<DataSeed>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, DataSeed seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -104,6 +125,12 @@ namespace TournamentTracker
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseWebSockets();
+            app.UseSignalR();
+            
+            seeder.Seed();
+
         }
     }
 }

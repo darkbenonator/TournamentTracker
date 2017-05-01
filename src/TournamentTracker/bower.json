@@ -3,15 +3,19 @@
   "private": true,
   "dependencies": {
     "bootstrap": "3.3.6",
-    "jquery-validation": "1.14.0",
-    "jquery-validation-unobtrusive": "3.2.6",
-    "jquery": "^2.2.3",
-    "angular": "^1.5.5",
-    "angular-bootstrap": "^2.4.0",
-    "angular-animate": "^1.6.1",
-    "angular-touch": "^1.6.1"
+    "jquery-validation": "1.15.0",
+    "jquery-validation-unobtrusive": "~3.2.6",
+    "jquery": "2.2.3",
+    "smalot-bootstrap-datetimepicker": "2.3.10",
+    "handlebars": "~4.0.5",
+    "datatables.net": "~1.10.15",
+    "datatables.net-bs": "~2.1.1",
+    "datatables.net-responsive": "~2.1.1",
+    "datatables.net-responsive-bs": "~2.1.1",
+    "signalr": "^2.2.1"
   },
   "resolutions": {
-    "jquery": ">=1.8"
+    "jquery": ">=1.9",
+    "jquery-validation": ">=1.9"
   }
 }

@@ -177,20 +177,221 @@ namespace TournamentTracker.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.GameConnectedPlayers", b =>
+                {
+                    b.Property<int>("ConnectedPlayerID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ConnectedTime");
+
+                    b.Property<string>("ConnectionID")
+                        .HasAnnotation("MaxLength", 200);
+
+                    b.Property<DateTime>("DisconnectedTime");
+
+                    b.Property<int>("GameID");
+
+                    b.Property<string>("Player");
+
+                    b.HasKey("ConnectedPlayerID");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("Player");
+
+                    b.ToTable("GameConnectedPlayers");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.Games", b =>
+                {
+                    b.Property<int>("GameID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<TimeSpan>("CurrentGameTime");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<TimeSpan>("GameLength");
+
+                    b.Property<int>("GameRulesID");
+
+                    b.Property<string>("Player1")
+                        .IsRequired();
+
+                    b.Property<int>("Player1Score");
+
+                    b.Property<string>("Player2")
+                        .IsRequired();
+
+                    b.Property<int>("Player2Score");
+
+                    b.Property<DateTime>("StartedTime");
+
+                    b.Property<int>("Table");
+
+                    b.HasKey("GameID");
+
+                    b.HasIndex("GameRulesID");
+
+                    b.HasIndex("Player1");
+
+                    b.HasIndex("Player1Score");
+
+                    b.HasIndex("Player2");
+
+                    b.HasIndex("Player2Score");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.GameScores", b =>
+                {
+                    b.Property<int>("GameScoreID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Player")
+                        .IsRequired();
+
+                    b.Property<int>("Primary2Score");
+
+                    b.Property<int>("PrimaryScore");
+
+                    b.Property<int>("SecondaryScore");
+
+                    b.Property<int>("SportsmanScore");
+
+                    b.HasKey("GameScoreID");
+
+                    b.HasIndex("Player");
+
+                    b.ToTable("GameScores");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.GamesRules", b =>
+                {
+                    b.Property<int>("GameRulesID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EventID");
+
+                    b.Property<string>("ExtraRules")
+                        .HasAnnotation("MaxLength", 200);
+
+                    b.Property<TimeSpan>("GameLength");
+
+                    b.Property<int>("PrimaryMission1");
+
+                    b.Property<int>("PrimaryMission2");
+
+                    b.Property<int>("PrimaryMissionDrawScore");
+
+                    b.Property<int>("PrimaryMissionWinScore");
+
+                    b.Property<int>("Round");
+
+                    b.Property<int>("SecondaryMission1");
+
+                    b.Property<int>("SecondaryMission2");
+
+                    b.Property<int>("SecondaryMission3");
+
+                    b.Property<int>("SecondaryMissionDrawScore");
+
+                    b.Property<int>("SecondaryMissionWinScore");
+
+                    b.HasKey("GameRulesID");
+
+                    b.HasIndex("EventID");
+
+                    b.HasIndex("PrimaryMission1");
+
+                    b.HasIndex("PrimaryMission2");
+
+                    b.HasIndex("SecondaryMission1");
+
+                    b.HasIndex("SecondaryMission2");
+
+                    b.HasIndex("SecondaryMission3");
+
+                    b.ToTable("GamesRules");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.Rules", b =>
+                {
+                    b.Property<int>("RuleID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Rule")
+                        .HasAnnotation("MaxLength", 200);
+
+                    b.Property<string>("RuleName")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 35);
+
+                    b.HasKey("RuleID");
+
+                    b.ToTable("Rules");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.BestPainted", b =>
+                {
+                    b.Property<int>("BestPaintedID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EventID");
+
+                    b.Property<string>("FirstPlace")
+                        .IsRequired();
+
+                    b.Property<string>("SecondPlace");
+
+                    b.Property<string>("ThirdPlace");
+
+                    b.Property<string>("VotingUser")
+                        .IsRequired();
+
+                    b.HasKey("BestPaintedID");
+
+                    b.HasIndex("EventID");
+
+                    b.HasIndex("FirstPlace");
+
+                    b.HasIndex("SecondPlace");
+
+                    b.HasIndex("ThirdPlace");
+
+                    b.HasIndex("VotingUser");
+
+                    b.ToTable("BestPainted");
+                });
+
             modelBuilder.Entity("TournamentTracker.Models.TournamentModels.Event", b =>
                 {
                     b.Property<int>("EventID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 1500);
 
                     b.Property<DateTime>("EndTime");
 
-                    b.Property<string>("EventName");
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 20);
 
-                    b.Property<string>("EventPackURL");
+                    b.Property<string>("EventPackURL")
+                        .HasAnnotation("MaxLength", 150);
+
+                    b.Property<string>("EventRestrictions")
+                        .HasAnnotation("MaxLength", 200);
+
+                    b.Property<string>("FoodDescription")
+                        .HasAnnotation("MaxLength", 200);
 
                     b.Property<int>("LocationID");
+
+                    b.Property<int>("NumberOfTables");
 
                     b.Property<DateTime>("StartTime");
 
@@ -199,6 +400,30 @@ namespace TournamentTracker.Data.Migrations
                     b.HasIndex("LocationID");
 
                     b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.EventArmyList", b =>
+                {
+                    b.Property<int>("EventArmyListID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EventID");
+
+                    b.Property<string>("List")
+                        .HasAnnotation("MaxLength", 1500);
+
+                    b.Property<string>("ListURL")
+                        .HasAnnotation("MaxLength", 150);
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("EventArmyListID");
+
+                    b.HasIndex("EventID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("EventArmyList");
                 });
 
             modelBuilder.Entity("TournamentTracker.Models.TournamentModels.EventOrganiser", b =>
@@ -219,26 +444,88 @@ namespace TournamentTracker.Data.Migrations
                     b.ToTable("EventOrganiser");
                 });
 
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.EventPlayers", b =>
+                {
+                    b.Property<int>("EventPlayerID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EventID");
+
+                    b.Property<string>("Player")
+                        .IsRequired();
+
+                    b.HasKey("EventPlayerID");
+
+                    b.HasIndex("EventID");
+
+                    b.HasIndex("Player");
+
+                    b.ToTable("EventPlayers");
+                });
+
             modelBuilder.Entity("TournamentTracker.Models.TournamentModels.Location", b =>
                 {
                     b.Property<int>("LocationID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AddressLine1");
+                    b.Property<string>("AddressLine1")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 30);
 
-                    b.Property<string>("AddressLine2");
+                    b.Property<string>("AddressLine2")
+                        .HasAnnotation("MaxLength", 30);
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 20);
 
-                    b.Property<string>("County");
+                    b.Property<string>("County")
+                        .HasAnnotation("MaxLength", 20);
 
-                    b.Property<string>("LocationName");
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 30);
 
-                    b.Property<string>("PostCode");
+                    b.Property<string>("FacebookURL")
+                        .HasAnnotation("MaxLength", 150);
+
+                    b.Property<string>("LocationName")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 35);
+
+                    b.Property<string>("PhoneNumber")
+                        .HasAnnotation("MaxLength", 14);
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 10);
+
+                    b.Property<string>("TwitterURL")
+                        .HasAnnotation("MaxLength", 150);
+
+                    b.Property<string>("WebsiteURL")
+                        .HasAnnotation("MaxLength", 150);
 
                     b.HasKey("LocationID");
 
                     b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.LocationAdmin", b =>
+                {
+                    b.Property<int>("LocationAdminID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("LocationID");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("LocationAdminID");
+
+                    b.HasIndex("LocationID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("LocationAdmin");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -278,6 +565,113 @@ namespace TournamentTracker.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.GameConnectedPlayers", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.GameModels.Games", "GameObj")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "PlayerObj")
+                        .WithMany()
+                        .HasForeignKey("Player");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.Games", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.GameModels.GamesRules", "GameRules")
+                        .WithMany()
+                        .HasForeignKey("GameRulesID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "UserPlayer1")
+                        .WithMany()
+                        .HasForeignKey("Player1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.GameScores", "Player1ScoreObj")
+                        .WithMany()
+                        .HasForeignKey("Player1Score")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "UserPlayer2")
+                        .WithMany()
+                        .HasForeignKey("Player2")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.GameScores", "Player2ScoreObj")
+                        .WithMany()
+                        .HasForeignKey("Player2Score")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.GameScores", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "PlayerObj")
+                        .WithMany()
+                        .HasForeignKey("Player")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.GameModels.GamesRules", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.TournamentModels.Event", "eventObj")
+                        .WithMany()
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.Rules", "PrimaryMission1Obj")
+                        .WithMany()
+                        .HasForeignKey("PrimaryMission1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.Rules", "PrimaryMission2Obj")
+                        .WithMany()
+                        .HasForeignKey("PrimaryMission2")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.Rules", "SecondaryMission1Obj")
+                        .WithMany()
+                        .HasForeignKey("SecondaryMission1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.Rules", "SecondaryMission2Obj")
+                        .WithMany()
+                        .HasForeignKey("SecondaryMission2")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.GameModels.Rules", "SecondaryMission3Obj")
+                        .WithMany()
+                        .HasForeignKey("SecondaryMission3")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.BestPainted", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.TournamentModels.Event", "eventObj")
+                        .WithMany()
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "FirstPlaceUser")
+                        .WithMany()
+                        .HasForeignKey("FirstPlace")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "SecondPlaceUser")
+                        .WithMany()
+                        .HasForeignKey("SecondPlace");
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "ThirdPlaceUser")
+                        .WithMany()
+                        .HasForeignKey("ThirdPlace");
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "VotingUserUser")
+                        .WithMany()
+                        .HasForeignKey("VotingUser")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("TournamentTracker.Models.TournamentModels.Event", b =>
                 {
                     b.HasOne("TournamentTracker.Models.TournamentModels.Location", "location")
@@ -286,11 +680,48 @@ namespace TournamentTracker.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.EventArmyList", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.TournamentModels.Event", "eventObj")
+                        .WithMany()
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
             modelBuilder.Entity("TournamentTracker.Models.TournamentModels.EventOrganiser", b =>
                 {
                     b.HasOne("TournamentTracker.Models.TournamentModels.Event", "eventObj")
                         .WithMany()
                         .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.EventPlayers", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.TournamentModels.Event", "eventObj")
+                        .WithMany()
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TournamentTracker.Models.ApplicationUser", "PlayerUser")
+                        .WithMany()
+                        .HasForeignKey("Player")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TournamentTracker.Models.TournamentModels.LocationAdmin", b =>
+                {
+                    b.HasOne("TournamentTracker.Models.TournamentModels.Location", "location")
+                        .WithMany()
+                        .HasForeignKey("LocationID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TournamentTracker.Models.ApplicationUser", "User")

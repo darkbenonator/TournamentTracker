@@ -5,34 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateEvent</h2>
-<p>
-    <a asp-action="CreateEvent">Create New</a>
-</p>
-<form asp-action="CreateEvent">
+<h2>Create Event</h2>
+        @*<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="Create Location">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Create Location</h4>
+            </div>
+            <div class="modal-body" id="LocationCreation">
+            </div>
+        </div>
+
+    </div>
+</div>*@
+<form asp-action="Create">
     <div class="form-horizontal">
-        <h4>Event</h4>
-        <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="LocationID" class="col-md-2 control-label">Location:</label>
+            <div class="col-md-10">
+                <select asp-for="LocationID" class="form-control" asp-items="ViewBag.Locations"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <a asp-action="AddLocation">Add Location</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EventName" class="col-md-2 control-label"></label>
+            <div class="col-md-10 EventName">
+                <input asp-for="EventName" class="form-control NameWatch" />
+                <span asp-validation-for="EventName" class="text-danger" />
+            </div>
+        </div>
         <div class="form-group">
             <label asp-for="Description" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
+                <textarea rows="8" asp-for="Description" class="form-control" ></textarea>
                 <span asp-validation-for="Description" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartTime" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StartTime" class="form-control" id="StartTime" value =""/>
+                <span asp-validation-for="StartTime" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="EndTime" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="EndTime" class="form-control" />
+                <input asp-for="EndTime" class="form-control" id="EndTime" value =""/>
                 <span asp-validation-for="EndTime" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="EventName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="EventName" class="form-control" />
-                <span asp-validation-for="EventName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -43,16 +72,24 @@
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="LocationID" class="col-md-2 control-label"></label>
+            <label asp-for="EventRestrictions" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="LocationID" class ="form-control" asp-items="ViewBag.LocationID"></select>
+                <textarea rows="5" asp-for="EventRestrictions" class="form-control"></textarea>
+                <span asp-validation-for="EventRestrictions" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="StartTime" class="col-md-2 control-label"></label>
+            <label asp-for="FoodDescription" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger" />
+                <textarea rows="4" asp-for="FoodDescription" class="form-control"></textarea>
+                <span asp-validation-for="FoodDescription" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberOfTables" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="NumberOfTables" class="form-control" />
+                <span asp-validation-for="NumberOfTables" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -66,6 +103,8 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

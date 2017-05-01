@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TournamentTracker.Models;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using TournamentTracker.Models.TournamentModels;
+using TournamentTracker.Models.GameModels;
 
 namespace TournamentTracker.Data
 {
@@ -39,7 +36,16 @@ namespace TournamentTracker.Data
             optionsBuilder.UseSqlServer(connectionStringConfig.GetConnectionString("Database"));
         }
         public DbSet<Location> Location { get; set; }
+        public DbSet<LocationAdmin> LocationAdmin { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<EventOrganiser> EventOrganiser { get; set; }
+        public DbSet<EventArmyList> EventArmyList { get; set; }
+        public DbSet<EventPlayers> EventPlayers { get; set; }
+        public DbSet<BestPainted> BestPainted { get; set; }
+        public DbSet<Rules> Rules { get; set; }
+        public DbSet<GamesRules> GamesRules { get; set; }
+        public DbSet<Games> Games { get; set; }
+        public DbSet<GameScores> GameScores { get; set; }
+        public DbSet<GameConnectedPlayers>GameConnectedPlayers { get; set; }
     }
 }

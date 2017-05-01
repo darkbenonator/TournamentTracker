@@ -46,6 +46,18 @@ namespace TournamentTracker
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+
+            // Add framework services.
+            services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Database")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             var settings = new JsonSerializerSettings();
             settings.ContractResolver = new SignalRContractResolver();
 
@@ -59,16 +71,6 @@ namespace TournamentTracker
             {
                 options.Hubs.EnableDetailedErrors = true;
             });
-
-            // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Database")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
 
             services.AddMvc();
 

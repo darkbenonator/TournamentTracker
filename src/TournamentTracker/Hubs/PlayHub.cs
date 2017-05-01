@@ -8,11 +8,11 @@ using TournamentTracker.Models.GameModels;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace TounamentTracker
+namespace TounamentTracker.Hubs
 {
     public class PlayHub : Hub
     {
-        public void updateUsers(int EventID, PlayersList players)
+        public void UpdateUsers(int EventID, PlayersList players)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -21,11 +21,11 @@ namespace TounamentTracker
                                               select CP.ConnectionID).ToList();
                 foreach (string ConnectionID in connectionIDs)
                 {
-                    Clients.User(ConnectionID).send(JsonConvert.SerializeObject(players));
+                    Clients.User(ConnectionID).Update(JsonConvert.SerializeObject(players));
                 }
             }
         }
-        public void connectUser(string userID, int EventID)
+        public void ConnectPlayer(string userID, int EventID)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -33,6 +33,7 @@ namespace TounamentTracker
                 NewPlayer.ConnectionID = Context.ConnectionId;
                 NewPlayer.ConnectedTime = DateTime.Now;
                 NewPlayer.Player = userID;
+                NewPlayer.EventID = EventID;
                 context.Add(NewPlayer);
                 context.SaveChanges();
                 PlayersList p = new PlayersList();
@@ -49,8 +50,15 @@ namespace TounamentTracker
                                     active = CP == null ? false : true
                                 }).ToList();
 
-                updateUsers(EventID, p);
+                UpdateUsers(EventID, p);
             }
         }
+        
     }
+
+    //public interface IPlayHub
+    //{
+    //    void Connect(string userID, int EventID);
+    //    void Send(string players);
+    //}
 }

@@ -1,17 +1,26 @@
 ﻿//////////////Variables////////////////////////
-var SignalRConnection;
+
 //////////////End Variables ///////////////////
 $(document).ready(function () {
-    //SignalR
+    var signalHub = $.connection.playHub;
+    //Signal
     $.connection.hub.logging = true;
-
-    //Log in the user
+  
     $.connection.hub.start().done(function () {
-        SignalRConnection.server.connectUser($('#SelectUserID').attr('id'), $('#SelectEventID').attr('id'));
+        console.log("hey");
+        signalHub.server.connectPlayer("90f59793-c159-4013-8125-7a1bc3da63d2", 1);
     });
 
-    SignalRConnection = $.connection.PlayHub;
-    SignalRConnection.client.updateUsers = function (PlayersList) {
+
+    //Log in the user
+    //$.connection.hub.start().done(function (SignalRConnection) {
+    //    console.log("hey");
+    //    $.connection.playHub.server.connect();
+    //});
+
+    
+    signalHub.client.update = function (PlayersList) {
+        alert("hi");
         $('#PlayersList').html();
         $.each(PlayersList, function (index, value) {
             $('#PlayersList').append(value);

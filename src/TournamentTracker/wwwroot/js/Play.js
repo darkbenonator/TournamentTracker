@@ -6,9 +6,25 @@ $(document).ready(function () {
     //Signal
     $.connection.hub.logging = true;
   
+    $.connection.playHub.client.update = function (PlayersList) {
+        alert("hi");
+
+    };
+
+    $.connection.playHub.client.test= function(players){
+        var PlayersList = JSON.parse(players);
+        $.each(PlayersList, function (index, value) {
+            $('#PlayersList').append(
+                '<a href="#" class="list-group-item">' + value[0].username + ' <span class="pull-right text-muted small">' + value[0].active + '</span></a>'
+               
+                );
+        });
+    };
+
     $.connection.hub.start().done(function () {
-        console.log("hey");
-        signalHub.server.connectPlayer("90f59793-c159-4013-8125-7a1bc3da63d2", 1);
+        var UserId = $('.SelectUserID').attr('id');
+        var eventID = $('.SelectEventID').attr('id');
+        signalHub.server.connectPlayer(UserId, eventID);
     });
 
 
@@ -19,12 +35,6 @@ $(document).ready(function () {
     //});
 
     
-    signalHub.client.update = function (PlayersList) {
-        alert("hi");
-        $('#PlayersList').html();
-        $.each(PlayersList, function (index, value) {
-            $('#PlayersList').append(value);
-        });
-    };
+
     //End SignalR
 });

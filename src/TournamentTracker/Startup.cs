@@ -36,6 +36,7 @@ namespace TournamentTracker
             }
 
             builder.AddEnvironmentVariables();
+            
             Configuration = builder.Build();
 
         }
@@ -127,7 +128,9 @@ namespace TournamentTracker
 
             app.UseWebSockets();
             app.UseSignalR();
+            
             seeder.Seed();
+
         }
     }
 }

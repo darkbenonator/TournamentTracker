@@ -21,7 +21,7 @@ namespace TounamentTracker.Hubs
                                               select CP.ConnectionID).ToList();
                 foreach (string ConnectionID in connectionIDs)
                 {
-                    Clients.User(ConnectionID).Update(JsonConvert.SerializeObject(players));
+                    Clients.Client(Context.ConnectionId).test(JsonConvert.SerializeObject(players));
                 }
             }
         }
@@ -53,7 +53,20 @@ namespace TounamentTracker.Hubs
                 UpdateUsers(EventID, p);
             }
         }
-        
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                GameConnectedPlayers NewPlayer = (from CP in context.GameConnectedPlayers
+                                                  where CP.ConnectionID == Context.ConnectionId
+                                                  select CP).First();
+                context.Remove(NewPlayer);
+                context.SaveChanges();
+                return base.OnDisconnected(stopCalled);
+            }
+        }
+
     }
 
     //public interface IPlayHub

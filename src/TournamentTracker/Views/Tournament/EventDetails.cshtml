@@ -259,7 +259,7 @@
 <div>
     @if (Model.Event.EventOrganiserID == UserManager.GetUserId(User))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Event.EventID }) 
+        @Html.ActionLink("Edit", "EditEvent", new { id = Model.Event.EventID }) 
     }
     else
     {

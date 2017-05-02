@@ -11,6 +11,7 @@ namespace TournamentTracker.Controllers
 {
     public class PlayController : Controller
     {
+        //Loads the play controller and will pass the organiser to check if more privledges are avalible. 
         [Authorize]
         public IActionResult Index(int EventID)
         {

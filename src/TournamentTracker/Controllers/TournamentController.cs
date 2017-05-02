@@ -18,9 +18,8 @@ namespace TournamentTracker.Controllers
     public class TournamentController : Controller
     {
 
-
+        //Allows access to the user functions
         private readonly UserManager<ApplicationUser> _userManager;
-
         public TournamentController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -89,7 +88,7 @@ namespace TournamentTracker.Controllers
             }
         }
 
-        //Create Event 
+        //Loads the Event page for the creation of new events.
         [Authorize]
         public IActionResult CreateEvent()
         {
@@ -121,7 +120,7 @@ namespace TournamentTracker.Controllers
         }
 
         //Load the location creation screen
-        //Add new Location, Admin only?
+        //Add new Location screen, Admin only?
         [Authorize]
         public ActionResult AddLocation()
         {
@@ -230,6 +229,7 @@ namespace TournamentTracker.Controllers
                         i++;
                     }
                 }
+                //Signed up players
                 GL.EventPlayers = (from ep in context.EventPlayers
                                    join u in context.Users on ep.Player equals u.Id
                                    where ep.EventID == EventID
@@ -239,7 +239,7 @@ namespace TournamentTracker.Controllers
                                        Username = u.UserName
                                    }
                                    ).ToList();
-                //Signed up players
+
                 string UserID = _userManager.GetUserId(HttpContext.User);
                 if (GL.EventPlayers.Any(x => x.UserID == UserID))
                 {
@@ -255,7 +255,7 @@ namespace TournamentTracker.Controllers
 
         }
 
-        //Edit the Event, Organiser Only.
+        //Edit the Event page, Organiser Only.
         [Authorize]
         public IActionResult EditEvent(int EventID)
         {
@@ -273,6 +273,7 @@ namespace TournamentTracker.Controllers
             }
         }
 
+        //Save the changes of the edited event
         [Authorize]
         public IActionResult SaveEditedEvent(Event e)
         {
@@ -293,6 +294,7 @@ namespace TournamentTracker.Controllers
             }
         }
 
+
         [Authorize]
         public ActionResult AddGame(int EventID)
         {
@@ -311,6 +313,7 @@ namespace TournamentTracker.Controllers
             return View(model);
         }
 
+        //Loads the edit game page
         [Authorize]
         public ActionResult EditGame(int EventID)
         {
@@ -322,6 +325,7 @@ namespace TournamentTracker.Controllers
             }
         }
 
+        //THe add rule page
         [Authorize]
         public ActionResult LoadAddRule(int EventID)
         {
@@ -330,6 +334,7 @@ namespace TournamentTracker.Controllers
             return View("AddRule", model);
         }
 
+        //Create game
         [Authorize]
         public void CreateGame(GamesRules CreatedGame)
         {
@@ -343,6 +348,7 @@ namespace TournamentTracker.Controllers
             }
         }
 
+        //Create Rule
         [Authorize]
         public void CreateRule(int id,Rules Rule)
         {
@@ -354,6 +360,8 @@ namespace TournamentTracker.Controllers
             AddGame(id);
         }
 
+        //Sign up to event
+        //Maybe add so an organiser can sign people up
         [Authorize]
         public void SignUpToEvent(int EventID)
         {
@@ -368,6 +376,8 @@ namespace TournamentTracker.Controllers
             Response.Redirect("/tournament");
         }
 
+        //Unsubscribe to an event
+        //The UserID accepts blank for if the organiser removes a user
         [Authorize]
         public void UnsubscribeToEvent(int EventID, string UserID = "")
         {

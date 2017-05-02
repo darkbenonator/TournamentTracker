@@ -4,6 +4,7 @@ var EventTable;
 $(document).ready(function () {
     //////////////////////////////////////EventsDataTables//////////////////////////////////////////////////////
     if (window.location.pathname === '/tournament' || window.location.pathname === '/tournament/') {
+        ///columns of the datatable
         var columns = [
             { "data": "eventName" },
             { "data": "locationName" },

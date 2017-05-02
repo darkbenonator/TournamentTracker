@@ -12,6 +12,8 @@ namespace TounamentTracker.Hubs
 {
     public class PlayHub : Hub
     {
+        //Updates the users with who is logged in
+        //Test with all
         public void UpdateUsers(int EventID, PlayersList players)
         {
             using (var context = new ApplicationDbContext())
@@ -25,6 +27,7 @@ namespace TounamentTracker.Hubs
                 }
             }
         }
+        //This is called upon the web page being loaded and adds a connection string for the player into the database [GameConnectedPlayers]
         public void ConnectPlayer(string userID, int EventID)
         {
             using (var context = new ApplicationDbContext())

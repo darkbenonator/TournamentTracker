@@ -1,29 +1,22 @@
 ﻿//////////////Variables////////////////////////
-
+    //Keeps the connection
+    var signalHub = $.connection.playHub;
 //////////////End Variables ///////////////////
 $(document).ready(function () {
-    var signalHub = $.connection.playHub;
     //Signal
     $.connection.hub.logging = true;
   
-    $.connection.playHub.client.update = function (PlayersList) {
-        alert("hi");
-
-    };
-
+    // This adds the players to the players 
     $.connection.playHub.client.test = function (players) {
-        alert(JSON.stringify(players));
         var PlayersList = JSON.parse(players);
-        var i = 0;
         $.each($.parseJSON(players), function () {
-            i++;
+            //appends the results
             $('#PlayersList').append(
                 '<a href="#" class="list-group-item">' + this.username + ' <span class="pull-right text-muted small">' + this.active + '</span></a>'
                 );
         });
-        alert(i);
     };
-
+    //Starts the connection and logs the user
     $.connection.hub.start().done(function () {
         var UserId = $('.SelectUserID').attr('id');
         var eventID = $('.SelectEventID').attr('id');

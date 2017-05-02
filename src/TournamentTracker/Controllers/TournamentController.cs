@@ -56,6 +56,7 @@ namespace TournamentTracker.Controllers
             string UserID = _userManager.GetUserId(HttpContext.User);
             using (var context = new ApplicationDbContext())
             {
+                //Events  list
                 EventViewModel eventVM = new EventViewModel();
                 eventVM.evtTable = (from E in context.Event
                                     join l in context.Location on E.LocationID equals l.LocationID
@@ -196,6 +197,7 @@ namespace TournamentTracker.Controllers
                 if (Rounds > 0) {
                     while (i <= Rounds)
                     {
+                        //Games connected to the event
                         GamesViewModel games = (from GR in context.GamesRules
                                                 join Mis1 in context.Rules on GR.PrimaryMission1 equals Mis1.RuleID
                                                 join Mis2 in context.Rules on GR.PrimaryMission2 equals Mis2.RuleID
@@ -241,6 +243,7 @@ namespace TournamentTracker.Controllers
                                    ).ToList();
 
                 string UserID = _userManager.GetUserId(HttpContext.User);
+                //Checks if the user is signed up to the event
                 if (GL.EventPlayers.Any(x => x.UserID == UserID))
                 {
                     GL.SignedUp = true;
@@ -265,6 +268,7 @@ namespace TournamentTracker.Controllers
             }
             using (var context = new ApplicationDbContext())
             {
+                //Sets the locations drop down for adding the events
                 var query = (from L in context.Location
                              select L).ToList();
                 Event model = (from E in context.Event where E.EventID == EventID select E).First();
@@ -288,21 +292,25 @@ namespace TournamentTracker.Controllers
                 {
                     return this.Index();
                 }
+                //Updates the entry row
                 context.Entry(m).CurrentValues.SetValues(e);
                 context.SaveChanges();
                 return this.Index();
             }
         }
 
-
+        //add game
         [Authorize]
         public ActionResult AddGame(int EventID)
         {
             var model = new GamesRules();
             using (var context = new ApplicationDbContext())
             {
+                //Gets the Games rules
                 var GameRules = (from GR in context.Rules
                                  select GR).ToList();
+
+                //Gets the rounds so that any new ones have the correct round number
                 int Round = (from GR in context.GamesRules
                              orderby GR.Round descending
                              select GR.Round).FirstOrDefault();
@@ -338,6 +346,7 @@ namespace TournamentTracker.Controllers
         [Authorize]
         public void CreateGame(GamesRules CreatedGame)
         {
+            //Checks to see the owner 
             if (CheckOwner.IsOwner(_userManager.GetUserId(HttpContext.User), CreatedGame.EventID))
             {
                 using (var context = new ApplicationDbContext())

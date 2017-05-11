@@ -1,1 +1,30 @@
+<div id="page-wrapper">
+    @*Title for admin*@
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Players</div>
+                <div class="panel-body">
+                    <div class="list-group" id="PlayersList">
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Table on right with active players*@
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Players</div>
+                <div class="panel-body">
+                    <div class="list-group" id="PlayersList">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* end Table on right with active players*@
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

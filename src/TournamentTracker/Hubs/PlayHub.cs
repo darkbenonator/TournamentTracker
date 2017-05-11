@@ -32,13 +32,35 @@ namespace TounamentTracker.Hubs
         {
             using (var context = new ApplicationDbContext())
             {
-                GameConnectedPlayers NewPlayer = new GameConnectedPlayers();
-                NewPlayer.ConnectionID = Context.ConnectionId;
-                NewPlayer.ConnectedTime = DateTime.Now;
-                NewPlayer.Player = userID;
-                NewPlayer.EventID = EventID;
-                context.Add(NewPlayer);
-                context.SaveChanges();
+                GameConnectedPlayers Existing = new GameConnectedPlayers();
+                Existing = (from CEP in context.GameConnectedPlayers
+                            where CEP.EventID == EventID
+                            where CEP.Player == userID
+                            select new GameConnectedPlayers
+                            {
+                                Player = CEP.Player,
+                                ConnectionID = CEP.ConnectionID,
+                                ConnectedTime = CEP.ConnectedTime,
+                                EventID = EventID,
+                                DisconnectedTime = CEP.DisconnectedTime
+                            }).FirstOrDefault();
+                if (Existing != null)
+                {
+                    GameConnectedPlayers Updated = Existing;
+                    Updated.ConnectionID = Context.ConnectionId;
+                    Updated.ConnectedTime = DateTime.Now;
+                    context.Entry(Existing).CurrentValues.SetValues(Updated);
+                }
+                else
+                {
+                    GameConnectedPlayers NewPlayer = new GameConnectedPlayers();
+                    NewPlayer.ConnectionID = Context.ConnectionId;
+                    NewPlayer.ConnectedTime = DateTime.Now;
+                    NewPlayer.Player = userID;
+                    NewPlayer.EventID = EventID;
+                    context.Add(NewPlayer);
+                    context.SaveChanges();
+                }
                 PlayersList p = new PlayersList();
                 p.playerList = (from U in context.Users
                                 join EP in context.EventPlayers on U.Id equals EP.Player
@@ -61,16 +83,21 @@ namespace TounamentTracker.Hubs
         {
             using (var context = new ApplicationDbContext())
             {
-                GameConnectedPlayers NewPlayer = (from CP in context.GameConnectedPlayers
-                                                  where CP.ConnectionID == Context.ConnectionId
-                                                  select CP).First();
-                context.Remove(NewPlayer);
-                context.SaveChanges();
-                return base.OnDisconnected(stopCalled);
+                GameConnectedPlayers NewPlayer = new GameConnectedPlayers();
+                NewPlayer = (from CP in context.GameConnectedPlayers
+                             where CP.ConnectionID == Context.ConnectionId
+                             select CP).FirstOrDefault();
+                if (NewPlayer != null)
+                {
+                    context.Remove(NewPlayer);
+                    context.SaveChanges();
+                }
             }
+            return base.OnDisconnected(stopCalled);
         }
-
     }
+
+}
 
     //public interface IPlayHub
     //{

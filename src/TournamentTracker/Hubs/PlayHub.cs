@@ -104,4 +104,3 @@ namespace TounamentTracker.Hubs
     //    void Connect(string userID, int EventID);
     //    void Send(string players);
     //}
-}
